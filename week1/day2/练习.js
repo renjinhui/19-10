@@ -50,7 +50,7 @@
 //----------------------------
     var n = 10;
     function outer(){
-        var n = 15;
+        n = 15;
         function inner(){
             function center(){
                 alert(n);
