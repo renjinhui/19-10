@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* 
+        变量提升：
+            在代码执行之前 会提前把 带var 和 带function  的变量提前声明；
+            带var的只声明 不定义
+            带function的 既声明又定义 ;在大括号{}中抱着的function 是只声明不定义
+            只提升等号左边的部分；return  后边的也不提升；
+
+            let 和 const 是不存在变量提升的， 但是有暂时性死区；在声明绝对不能调用
+        
+        堆内存： 就是用来存储 引用数据类型
+        栈内存： 就是用来存储 值类型，也提供代码的运行环境(作用域)
+
+        作用域(scope):
+            代码能够起作用的区域；
+            全局作用域  页面一打开就会形成一个全局作用域，只有一个全局作用域
+            私有作用域  函数一执行就会形成一个私有作用域，私有作用可以有多个
+            块级作用域  针对let和const 存在的一种作用域；
+
+            全局变量 ：在全局声明的变量 我们称为全局变量
+            私有变量 ：在私有作用域声明的变量 我们称为私有变量 ，除此之外形参也是私有变量
+
+        作用域链： 变量的查找机制，在某个私有作用域中， 存在某个变量，那么这个变量的取值，
+                    它是有自己的一套规律的， 先在自己的作用域中查找，若不是自己作用域的变量，
+                    则再去上级作用域查找，找到即可，找不到 就一直查找到window;
+        上级作用域： 是针对私有作用域来说的，函数执行形成了一个私有作用域，那么这个私有作用域的上级
+                    作用域 是谁，是由这个函数 在那个作用域中定义的 决定的；               
+    
+
+        函数执行的过程： 先开辟一个私有作用域(栈内存)  然后形参赋值  变量提升  代码从上到下执行  
+        
+        高阶函数
+    */
+    var a = 12; 
+    if(1 < 2){
+        let a = 12;
+        console.log(a)
+    }
+    console.log(a)
+
+    function f() {
+        console.log(1)
+        return function(){
+            console.log(2)
+            return function () {
+                console.log(3)
+            }
+        }
+    }
+    f()()()
+
+
+    var f = a => b => c => a+b+c;
+    var f = a => {
+        return b => {
+            return c=>{
+                return a+b+c
+            }
+        }
+    }
+</script>

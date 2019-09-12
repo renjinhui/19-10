@@ -71,8 +71,12 @@
         console.log(a);
         a = 100;
         var b = 200;
+        return function () {
+            var a = 4;
+            debugger
+        }
     }
-    f();
+    f()();
     console.log(a)
 
     // var a = b = 10;  var a = 10; b = 10

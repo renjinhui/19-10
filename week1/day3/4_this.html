@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+</body>
+</html>
+<script>
+    /* 
+        *****   箭头函数 中没有  this 和 arguments; 它是这两者当作了普通变量去对待了;
+                                箭头函数中的this 是指向了  上级作用域的this;
+        this  就是 函数执行主体
+        
+        事件绑定中的this 就是当前绑定的元素
+        自执行函数中的this  是 window
+        定时器中的this也是 window
+
+        this 的指向是谁， 我们可以通过看点的方式 来确定；函数执行 点 前是谁 this就是谁，
+                         没点 就是window；
+    */
+    var btns = document.querySelectorAll('button');
+    [...btns].forEach(item=>{
+        item.onclick = function(){
+            console.log(this)
+        }
+    });
+    (function(){
+        console.log(1,this)
+    })();
+    ~function(){
+        console.log(2,this)
+    }();
+    !function(){
+        console.log(3,this)
+    }();
+
+
+    var obj  = {
+        age:100,
+        f(){
+            console.log(this)
+        },
+        f2:function(){
+
+        },
+        f3:()=>{
+            console.log(this)
+        }
+    }
+    // obj.f ===  fn ===  ary[3]
+    obj.f() // obj.age
+    var fn = obj.f;
+    fn(); // window.age
+    var ary = [1,2,3,fn];
+    ary[3](); // ary.3()
+
+    obj.f3();// obj   window
+
+
+
+
+    function fn2(){
+        return ()=>{
+            console.log(arguments)
+        }
+    }
+    fn2(1,2,3,4,5)()
+
+    setTimeout(function(){
+        console.log(this)// window
+    },2000)
+</script>

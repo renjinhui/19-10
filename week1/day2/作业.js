@@ -40,14 +40,14 @@ console.log(n)
 
 
 //----------------------------------------------------
-alert(a);
-console.log("a" in window);
+alert(a);// undefined
+console.log("a" in window);//true
 if (!("a" in window)) {
     var a = 10;
 }
-alert(a);
+alert(a);// undefined
 
-console.log(fn);
+console.log(fn);// undefined
 if (9 == 8) {
     function fn() {
         alert(2);
@@ -67,10 +67,10 @@ g = function () {
             return false
         };
     }
-
     function g() {
         return true
     };
+    
 })();
 alert(f());
 alert(g())

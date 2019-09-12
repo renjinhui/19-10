@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>100</button>
+    <button>200</button>
+    <button>300</button>
+    <button>400</button>
+    <button>500</button>
+</body>
+</html>
+<script>
+    var btns = document.querySelectorAll('button');
+    // for(var i = 0; i < btns.length ; i++){
+    //     btns[i].onclick = (function (n) {
+    //         return function () {
+    //             alert(`我是第${n+1}个button`)
+    //         }
+    //     })(i)
+    // }
+    [...btns].forEach((item,index)=>{
+        item.onclick = function(){
+            alert(`我是第${index+1}个button`)
+        }
+    })
+
+    // for(let i = 0; i < btns.length ; i++){
+    //     btns[i].onclick = function () {
+    //         alert(`我是第${i+1}个button`)
+    //     }
+    // }
+    // {
+    //     let i = 0;
+    //     btns[0].onclick = function () {
+    //         alert(`我是第${i+1}个button`)
+    //     }
+    // }
+    // {
+    //     let i = 1;
+    //     btns[1].onclick = function () {
+    //         alert(`我是第${i+1}个button`)
+    //     }
+    // }
+    // {
+    //     let i = 2;
+    //     btns[2].onclick = function () {
+    //         alert(`我是第${i+1}个button`)
+    //     }
+    // }
+</script>
