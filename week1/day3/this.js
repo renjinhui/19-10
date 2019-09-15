@@ -65,3 +65,6 @@ var fn = obj.fn;
 fn(10);
 obj.fn(20);
 console.log(num, obj.num);
+
+
+// gsgfsdgfagdf
