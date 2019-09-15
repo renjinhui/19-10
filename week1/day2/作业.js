@@ -150,3 +150,14 @@ var x = fn();
 x();
 x();
 console.log(n);
+
+
+
+
+console.log(f)// 3
+function f(){1}
+console.log(f) // 3
+var f = function(){2}
+console.log(f) // 2
+function f(){3}
+console.log(f) //2

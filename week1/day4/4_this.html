@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按钮</button>
+</body>
+
+</html>
+<script>
+    /* 
+        this 普通函数内部的一个关键字， 代表函数的执行主体；箭头函数中没有this（在箭头函数中就是一普通变量）;
+        自执行函数中的this 是  window
+        定时器中的this 是 window
+        事件绑定中的this  是绑定的当前元素
+        其他看点， 函数执行时 点前边是谁， 函数中的this就是谁，没点就是 window
+    */
+    // !function(){
+    //     console.log(this)
+    // }();
+    // ~function(){
+    //     console.log(this)
+    // }();
+    // (function(){
+    //     console.log(this)
+    // })();
+    btn.onclick = function () {
+        // this 是绑定的元素
+        ~ function () {
+            console.log(this)
+        }();
+        ( ()=> {
+            console.log(this)
+        })();
+    }
+    var fn = ()=>{
+        // 对于 箭头函数来说  this 和  arguments 都是 变量
+        console.log(this)
+    }
+    var obj = {
+        f:fn
+    }
+    var ary = [fn];
+
+    btn.onclick = fn; // btn
+    fn();// window
+    obj.f()// obj
+    ary[0]() // ary
+</script>

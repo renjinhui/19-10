@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* 
+        变量提升：
+            在代码执行之前， JS会把代码中 带有var 和 function关键字 的变量提前声明，
+            带var的 是只声明 不定义
+            function  声明+定义
+            在{}(if  for  while)中的function 是只声明不定义的；
+            赋值的右边是没有变量提升的；
+
+            let  const  暂时性死区  在声明之前 绝对不能调用；
+
+        栈内存：存储值类型  提供代码的运行环境
+        堆内存：存储引用数据类型；  
+        
+        作用域： 全局作用域  私有作用域
+        全局作用域  页面一打开就会形成一个全局作用域；
+            全局变量：  在全局声明的变量；
+        私有作用域  函数执行会形成一个私有作用域；
+            私有变量：  形参  私有作用域声明的变量； 
+        块级作用域   if for while 的那个{}
+            let const 声明的变量 可以识别出块级作用域；
+            
+        上级作用域： 针对私有作用域；跟函数在哪里形成的有关系；跟函数在哪里执行没有任何关系
+        作用域链： 变量的一种查找机制，在某个作用域有某个变量，这个变量对应的值是谁，先看是不是
+        当前作用域的私有变量，不是的话 就向上级作用域查找；再不是，接着向上查直到window,没有的
+        话就是报错；    
+
+    */
+   var obj = {
+       f:function q(){}
+   }
+   var obj = {};
+   var q3 = function w(){
+       console.log(obj)
+       let obj = {};
+   }
+   console.log(q,w)
+</script>
