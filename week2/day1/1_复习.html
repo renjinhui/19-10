@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+</body>
+</html>
+<script>
+    var btns = document.querySelectorAll('button');
+    console.dir(btns);
+
+    // function f(i){
+    //     btns[i].onclick = function(){
+    //         alert(i)
+    //     }
+    // }
+    // for(var i = 0; i < btns.length; i++){
+    //     // (function (i) {
+    //     //     console.log(i)
+    //     //     btns[i].onclick = function () {
+    //     //         alert(i)
+    //     //     }
+    //     // })(i)
+    //     f(i)
+    // }
+
+
+    // [...btns].forEach((item,index)=>{
+    //     item.onclick = function(){
+    //         alert(index);
+    //     }
+    // })
+
+    for(var i=0; i < btns.length; i++){
+        btns[i].onclick = (function(i){
+            return function () {
+                alert(i)
+            }
+        })(i)
+    }
+</script>
+<script>
+    // 'use strict' // 严格模式
+    /* 
+        变量提升: 在代码执行之前；var function
+                    let  const  暂时性死区；
+        垃圾回收机制：
+            堆内存：谷歌 定期清除；火狐 计数；
+            栈内存：关闭页面可以回收全局作用域占用的栈内存；
+                   私有作用域占用的 栈内存；返回值是引用数据类型的 或者 由外部占用函数内部的某些内容；这种栈内存是不会被回收的            
+
+        全局作用域 ---》 全局变量 ：在全局作用域声明
+        私有作用域 ---》 私有变量 ： 形参  在私有作用域声明
+        块级作用域 ---》 私有变量  只能针对 let 和 const 声明的变量起作用；
+
+        作用域链： 变量的查找机制；
+
+    */
+    // let a = 100;
+    qqq = 1000;
+    function f() {
+        // 'use strict'
+        a = 123
+    }
+    f();
+    console.log(a)
+    var ary = [f];
+    var f2 = f;
+    f2 = 0;
+    f = 0;
+    ary[0] = 0;
+
+
+    if(1>2){
+        function f(){
+
+        }
+    }
+</script>
