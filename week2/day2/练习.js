@@ -18,7 +18,7 @@ Fn.prototype = {
         console.log(this.x + this.y);
     }
 };
-var f1 = new Fn;
+var f1 = new Fn();
 var f2 = new Fn;
 console.log(f1.getX === f2.getX);
 console.log(f1.getY === f2.getY);
@@ -39,7 +39,7 @@ function Foo() {
     getName = function () {console.log(1);};
     return this;
 }
-Foo.getName = function () {console.log(2);}; // 当作对象
+Foo.getName = function () {console.log(2);}; 
 Foo.prototype.getName = function () {console.log(3);};
 var getName = function () {console.log(4);};
 function getName() {console.log(5);}
@@ -48,7 +48,7 @@ Foo.getName();
 getName();
 Foo().getName(); 
 getName();
-var a = new Foo.getName();
+var a = new Foo.getName(); // 
 var b = new Foo().getName();
 var c = new new Foo().getName();
 console.log(a,b,c);
@@ -59,12 +59,14 @@ function Person() {
 };
 Person.prototype.getName = function () {
     console.log(this.name)
+    console.log(this.age)
 };
 Person.prototype.age = 5000;
 
 var per1 = new Person;
 per1.getName();
 per1.age = 9;
+per1.getName();
 console.log(per1.age);
 var per2 = new Person;
 console.log(per2.age);

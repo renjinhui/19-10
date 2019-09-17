@@ -25,5 +25,8 @@
     }
     Person.prototype.eat = function(){}
     Person.prototype.play = function(){}
-    var p1 = new Person('小明',10)
+    var p1 = new Person('小明',10);
+    var p2 = Person('小红',10);
+    // 普通函数的执行过程： 开辟一个作用域， 形参赋值  变量提升  代码从上到下执行；
+    // new 执行时， 开辟一个作用域 形参赋值  变量提升  开辟一个堆内存，把this的指向改成这个堆内存 然后代码从上到下执行
 </script>
