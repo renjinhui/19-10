@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var ary = [234,53,2342,45,234,464,2,6,45];
+    Math.max(1,2,4,45,6);
+
+    Math.max(...ary);
+
+    Math.max.apply(Math,ary);// 利用了 apply 可以把集合散乱的传给前边的函数
+
+    ary.sort((a,b)=>b-a)[0];
+
+    // 假设法
+
+    var str = 'aeradgdsgfsryshsf';
+    var arr = str.split('');
+    console.log(arr);
+    arr.sort((a,b)=>{
+        return a.localeCompare(b)
+    })
+    console.log(arr.join(''));
+
+    var ary = [
+        {
+            name:'小红',
+            age:10
+        },
+        {
+            name:'小花',
+            age:103
+        },
+        {
+            name:'小明',
+            age:1
+        },
+        {
+            name:'小李',
+            age:120
+        }
+    ]
+    ary.sort((a,b)=>{
+        return a.name.localeCompare(b.name)*(-1)
+    })
+
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // apply 功能 类似于 call
+    function fn() {
+        console.log(arguments)
+        console.log(this)
+        console.log('--------------------------------')
+    }
+    var obj = {
+        a:12,
+        b:13
+    }
+    // fn.call(obj,5,6,7,8);
+    fn.apply(obj,[5,6,7,8]);
+    // 第二个参数是个数组或者类数组的集合；虽然是以一个集合的形势传过去的；但是 fn 接收时还是散乱的接收的
+
+    // 实现一个 myApply 的方法 ；功能等同于  apply
+    Function.prototype.myApply = function myApply(context,arg) { // ... 剩余运算符
+        arg = arg || [];
+        context = context || window;
+        let a = Symbol(); // 产生一个唯一的不会重复的值
+        context[a] = this;
+        let res = context[a](...arg);
+        delete context[a];
+        return res;
+    }
+
+    // fn.myCall(obj, 6, 6, 6)
+    // fn.myApply(obj,[5,6,7,8]);
+
+
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+        return []
+    }
+    var p = new Person('珠峰',10);// p = {name:zf,age:10}  p.__proto__ === Person.prototype
+    function myNew(...arg) {
+        //       Person,name,age
+        var obj = {};
+        var Constructor = arg.shift();
+        obj.__proto__ = Constructor.prototype;
+        let res = Constructor.apply(obj,arg);
+        return typeof res === 'object' ? res : obj;
+    }
+    var p2 = myNew(Person,'珠峰',10);
+</script>

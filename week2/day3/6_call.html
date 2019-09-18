@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
 <script>
     // call 是用来改变函数内部的this 指向的；
-    function fn(){
-        console.log([].slice.call(arguments,0))// [1].slice(0)
-
+    function fn() {
+        // console.log([].slice.call(arguments,0))// [1].slice(0)
+        console.log([...arguments])
+        // console.log(Array.from(arguments))
         console.log(this)
         console.log('---------------------------')
+        return 123;
     }
     var obj = {
-        a:12,
-        b:13,
-        f:fn
+        a: 12,
+        b: 13,
+        qqq: 123,
+        f: fn
     }
-    fn(1,2,3)
-    obj.f(6,6,6);
+    // fn(1,2,3)
+    // obj.f(6,6,6);
 
-    fn.call(obj,5,5,5);
+    // fn.call(obj,5,5,5);
     // call  可以让函数执行，并且可以改变函数执行时，内部的this指向，
     //       this指向了 call的第一个实参，call后边的所有的参数，都被作为实参传给了 前边的函数，
 
-    ({}).toString.call('')
-    obj.toString();// this 是 obj ;
-    // Object.prototype.toString.call()
+    // ({}).toString.call('')
+    // obj.toString();// this 是 obj ;
+    // Object.prototype.toString.call()；
+    // fn.call.call(obj);
+    // call 方法是在 Function类的原型上；
+
+    // 自己实现一个myCall方法   用法等同于  call;
+    Function.prototype.myCall = function myCall(context, ...arg) { // ... 剩余运算符
+        // this --->  fn
+        // this(...arg) // 扩展运算符
+        // 让 fn（this） 执行 并且让 函数中的this是context;
+        // context.qqq()  qqq执行时 里边的this是 context
+        // context.qqq = this;//  context.qqq ---> fn
+        // context.qqq(...arg);// 让 fn执行了
+        // delete context.qqq;// 删除增加的属性
+        context = context || window;
+        let a = Symbol(); // 产生一个唯一的不会重复的值
+        context[a] = this;
+        let res = context[a](...arg);
+        delete context[a];
+        return res;
+    }
+
+    fn.myCall(obj, 6, 6, 6) // 让 fn执行； fn中的this 指向obj; 把6，6，6传给fn
+
+
+    // L  instanceof   R
+    function instance_of(L, R) {
+        //L 表示左表达式，R 表示右表达式
+        var O = R.prototype; // 取 R 的显示原型
+        L = L.__proto__; // 取 L 的隐式原型
+        while (true) {
+            if (L === null) return false;
+            if (O === L)
+                // 这里重点：当 O 严格等于 L 时，返回 true
+                return true;
+            L = L.__proto__;
+        }
+    }
 </script>
