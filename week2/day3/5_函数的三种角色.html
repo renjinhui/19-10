@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* 
+        函数的三种角色
+
+        普通函数
+            形参实参  this  return  作用域 变量；
+        类
+            new  类 实例  this 原型  原型链   __proto__  基类
+        对象
+            属性名 属性值；
+    */
+    function Person(name = 'zf', age = 10) {
+        this.name = name;
+        this.age = age;
+    }
+    Person(); // 普通函数
+    var p = new Person(); // 类
+    Person.qqq = 123; // 对象
+
+    function Foo() {
+        getName = function () {
+            console.log(1);
+        };
+        return this;
+    }
+    Foo.getName = function () {
+        console.log(2);
+    };
+    Foo.prototype.getName = function () {
+        console.log(3);
+    };
+    var getName = function () {
+        console.log(4);
+    };
+
+    function getName() {
+        console.log(5);
+    }
+    Foo.getName();
+    getName();
+    Foo().getName();
+    getName();
+    new Foo.getName();
+    new Foo().getName();
+    new new Foo().getName();
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // call 是用来改变函数内部的this 指向的；
+    function fn(){
+        console.log([].slice.call(arguments,0))// [1].slice(0)
+
+        console.log(this)
+        console.log('---------------------------')
+    }
+    var obj = {
+        a:12,
+        b:13,
+        f:fn
+    }
+    fn(1,2,3)
+    obj.f(6,6,6);
+
+    fn.call(obj,5,5,5);
+    // call  可以让函数执行，并且可以改变函数执行时，内部的this指向，
+    //       this指向了 call的第一个实参，call后边的所有的参数，都被作为实参传给了 前边的函数，
+
+    ({}).toString.call('')
+    obj.toString();// this 是 obj ;
+    // Object.prototype.toString.call()
+</script>

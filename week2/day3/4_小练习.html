@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function C1(name) {
+        if (name) {
+            this.name = name;
+        }
+    }
+
+    function C2(name) {
+        this.name = name;
+    }
+
+    function C3(name) {
+        this.name = name || 'join';
+    }
+    C1.prototype.name = 'Tom';
+    C2.prototype.name = 'Tom';
+    C3.prototype.name = 'Tom';
+    alert((new C1().name) + (new C2().name) + (new C3().name));
+
+
+    //练习2
+    function Fn(num) {
+        this.x = this.y = num;
+    }
+    Fn.prototype = {
+        x: 20,
+        sum: function () {
+            console.log(this.x + this.y);
+        }
+    };
+    let f = new Fn(10);
+    console.log(f.sum === Fn.prototype.sum);
+    f.sum();
+    Fn.prototype.sum();
+    console.log(f.constructor);
+</script>

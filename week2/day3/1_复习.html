@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* 
+        类          实例
+       人类         奥巴马
+       Array         []
+       Object        {}        基类
+       Function       f
+
+
+    */
+    function factory() {
+        var obj = {name:222,age:111}
+        return obj
+    }
+    var fa1 = factory();
+    fa1.toString();
+
+    function Person() {
+        this.name = 123;
+        this.age = 234;
+    }
+    Person.prototype.eat = function(){}
+    Person.prototype.play = function(){}
+    var p1 = new Person();
+    // new 比  普通函数执行  多了一个 开辟堆内存， 把this指向这个堆内存 的动作； 默认返回this
+    p1.toString();
+
+    class Man{
+        constructor(){
+            this.name = 666;
+            this.age = 555;
+        }
+        eat(){}
+        play(){}
+    }
+    var m1 = new Man();
+    var m2 = new Man();
+
+    // 原型链 属性的查找机制；当我们调用一个属性的时候， 现在自己身上查找，没有的话 会通过 __proto__
+    //        向所属类的原型上查找，没有的话 在通过原型的 __proto__ 向上级查找， 直到找到基类；
+
+    /* 
+        每一个函数(类) 都有一个天生自带的属性 prototype； 指向自己的原型对象；
+        每一个对象(实例) 都有一个天生自带的属性 __proto__ ; 指向所属类的原型对象；
+        每一个默认的原型对象上 都有一个constructor属性  指向对应的构造函数本身
+    */
+    
+    // hasOwnProperty  在基类的原型上；
+    // constructor  判断数据类型的原理；  原型重构(Person.prototype = {constructor:Person})
+    // xxx instanceof zzz;  从xxx到基类的原型链上 是否存在zzz的身影；不适合基本数据类型；
+
+
+    
+
+</script>
