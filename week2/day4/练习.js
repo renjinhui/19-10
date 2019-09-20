@@ -103,7 +103,7 @@ Fn.prototype.eat = function () {
     console.log(this.name)
 }
 var f1 = new Fn('zf',10);
-f.eat = function(){
+f1.eat = function(){
     console.log('吃苹果');
     console.log(this.age);
 }
