@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 类 的 继承  封装(高内聚 低耦合)  多态
+
+    function Person(name,age){
+        // call 继承； 这种继承方式只能继承私有属性；
+        Animal.call(this,10000);// 把 Animal中的this 换成当前的实例； 把10000传给了 Animal
+        this.name = name;
+        this.age = age;
+    }
+
+    // Person.prototype = Animal.prototype; // 让 Person的原型 指向了 Animal的原型
+    // Person.prototype = new Animal(666);// 让Person的原型指向了 Animal的某个实例
+    Person.prototype = Object.create(Animal.prototype);// create创造了一个空对象 空对象的__proto__ 指向了 Animal的prototype
+    Person.prototype.eat = function(){
+        console.log('吃')
+    }
+
+    function Animal(iq){
+        this.iq = iq;
+    }
+    Animal.qqq = 123;
+    Animal.prototype.move = function(){
+        console.log('能动')
+    }
+    Animal.prototype.sleep = function(){
+        console.log('休息')
+    }
+
+    var p1 = new Person('xm',100);
+    p1.move()
+
+
+
+    class Parent{
+        constructor(){
+            this.name='parent'
+            this.age = 100
+        }
+        say(){
+            console.log('hello parent')
+        }
+        static qqq = 245
+    }
+    class Child extends Parent{
+        constructor(){
+            super();// 写了 extents 和  constructor；  则必写 super() ;super 其实就是 Parent 的constructor
+            this.money = 100;
+        }
+        play(){
+            console.log('child play')
+        }
+    }
+    var xm = new Child();
+    console.log(xm);
+
+</script>
