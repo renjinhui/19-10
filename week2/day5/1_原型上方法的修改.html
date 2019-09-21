@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* 
+        类      实例
+       人类     奥巴马
+       Array     []
+       Function  f
+       Object    {}    基类
+
+        原型链      属性的查找机制；自己没有 默认通过 __proto__向所属类的原型上查找，若没有的话  可以一直查找到基类的原型上
+        作用域链    变量的查找机制 
+
+        每一个函数(类)  都有一个天生自带的属性 prototype  指向自己的原型对象
+        每一个对象(实例)  都有一个天生自带的属性 __proto__  指向所属类的原型对象
+        每一个默认的原型对象上 都有一个天生自带的属性  constructor 指向 对应的构造函数本身
+
+        自定义类 
+    */
+
+    function Person(){
+        this.name = 123
+    }
+    Person.prototype.eat = function(){};
+    var p1 = new Person();// p1 就是 Person 的一个实例；  var  ary = [];  var arr = new Array;
+    p1.eat();
+
+    class Man{
+        constructor(){
+            this.name = 123;
+        }
+        eat(){
+            // 保证 这里 this  都是 当前类的实例 
+            // 在 class 声明的类中  原型上的共用属性 只能是函数；
+        }
+    }
+
+    Array.prototype.pop = function(n=1){ // n = n || 1;    cb && cb()
+        // n 代表了要删除的末尾的项数  把删除的项组成一个新数组返回
+        // n和数组的长度做判断
+        // this ---> ary
+        var temp = [];
+        n = n > this.length ? this.length : n;
+        temp = this.slice(this.length-n);
+        this.length -= n ;
+        // if(n > this.length){
+        //     // throw new Error('长度过分')
+        //     // temp = this.slice(0);
+        //     temp.push(...this)
+        //     this.length = 0;
+        // }else{
+        //     // n = 2; 则需要我们 把 length-2 和 length-1 这两项删除
+        //     temp = this.slice(this.length-n);
+        //     this.length -= n ;
+        // }
+        return temp;
+    }
+    var ary = [1,2,3,4,5];
+    Array.prototype = {} ;// 原型重构 不起作用；内置类的原型是不能重新赋值的；
+    // 自定义类的原型重构时需要注意 constructor 的指向；
+
+    // max数组中的最大值     average数组的平均值
+    Array.prototype.max = function(){
+        // 三种任选其一
+        return this.sort((a,b)=>b-a)[0];
+        return Math.max(...this);
+        return Math.max.apply(Math,this);
+    }
+    Array.prototype.average = function(){
+        // this 是要操作的数组
+        return eval(this.join('+'))/this.length
+    }
+</script>

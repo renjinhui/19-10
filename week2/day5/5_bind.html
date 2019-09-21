@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">按钮1</button>
+    <button id="btn2">按钮2</button>
+</body>
+</html>
+<script>
+    // 'use strict'
+    function fn(){
+        console.log(arguments);
+        console.log(this)
+        console.log('-------------------------')
+    }
+    var obj = {q:12};
+    var res = fn.call(obj,1,2,3); // res undefined
+    var res2 = fn.bind(obj,1,2,3) // res2 是一个新的函数；
+    // 新函数 res2执行的时候 ， 里边的this是obj;默认参数是 1，2，3； 返回结果是 fn的结果
+    btn.onclick = fn;
+    btn2.onclick = res2;
+    res2(6,6,6);
+    Function.prototype.myBind = function(context=window,...arg){
+        // this ---> fn
+        var _this = this; // _this --> fn
+        return function(...arr){
+            return _this.apply(context,arg.concat(arr))
+            return _this.apply(context,[...arg,...arr])
+        }
+    }
+    var res3 = fn.myBind(obj,1,2,3);
+
+    /* 
+        this :
+        *** 箭头函数中的this  是上级作用域中的this；  箭头函数是把 this 和 arguments 当作普通变量对待
+        new 执行时， 函数中的this 是 当前创造的那个实例
+
+        定时器、自执行函数中的this 是 window
+        事件绑定  是 绑定的那个元素
+        其他看点 没点都是window
+    */
+
+   fn.call()
+   fn.call(null)
+   fn.call(undefined)
+
+</script>
