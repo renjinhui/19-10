@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.md{
+    width: 1200px;
+    margin: auto;
+}
+.md header{
+    border:1px solid #ccc;
+    height: 50px;
+    line-height: 50px;
+}
+.md header span{
+    padding: 0 20px;
+    cursor: pointer;
+    user-select: none;
+}
+img{
+    height: 100%;
+}
+/* 三角型 */
+.md header span:first-child{
+    cursor: default
+}
+#box{
+    overflow: hidden;
+    margin-top: 15px;
+}
+#box li{
+    position: relative;
+    float: left;
+    width: 220px;
+    height: 340px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+#box li:nth-child(5n){
+    margin-right: 0;
+}
+#box li:hover{
+    border-color: red;
+}
+#box li .imgBox{
+    height: 180px;
+    width: 180px;
+    /* margin: auto; */
+    margin: 20px auto 10px;
+}
+#box li .til{
+    color: rgb(51, 49, 49);
+    text-align: center;
+    font-size: 14px;
+}
+#box li .desc{
+    text-align: center;
+    font-size: 15px;
+    margin: 10px;
+}
+#box li .price{
+    text-align: center;
+    font-size: 15px;
+    color: red;
+}
+#box li .botBox{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+#box li .botBox div{
+    flex: 1;
+    border-top:1px solid #ccc;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+}
+#box li .botBox div:first-child{
+    border-right: 1px solid #ccc;
+}
