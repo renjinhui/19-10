@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    RegExp.prototype.execAll = function (str) {
+        // 一直用exec捕获  啥时候结果是null  啥时候就停止捕获
+        // 先用一个变量接收 exec的结果 
+        // 当这个结果存在 就是把这结果放到一个数组中
+        // 当结果不存在时  返回 这个数组；
+
+        // 第二部  怎么处理 没有 g的情况;根据 this.global属性
+        let _this = this;
+        if(!_this.global){
+            // 没有 global的情况
+            // _this = eval(_this+'g')
+            let s = /^\/(.+)\/$/.exec(_this+'')[1];
+            _this = new RegExp(s,'g')
+            console.log(_this)
+        }
+
+        let res = _this.exec(str);
+        let ary = [];
+        while(res){
+            ary.push(res);
+            res = _this.exec(str)
+        }
+        return ary;
+    }
+
+    var str = '珠峰2019培训2020ttt666';
+    var reg = /\d+/;// 2019 2020  null
+    var res = reg.execAll(str);
+    console.log(res);
+
+</script>
