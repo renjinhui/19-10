@@ -26,11 +26,12 @@
         }
         return ary;
     }
-    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13';
+    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#qqqq';
 
     function getParam(url){
         var reg = /([^?=&#]+)=([^?=&#]+)/g;
         var obj = {};
+        debugger
         reg.execAll(url).forEach(a=>{
             obj[a[1]] = a[2]
         })
