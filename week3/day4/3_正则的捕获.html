@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // exec
+    // 返回结果若有就是个数组，没有就是null;数组中的第一项永远是大正则捕获的内容，第二项及以后
+    // 都是对象小分组捕获的内容；
+    var reg = /(\d+?)+/g; // /(\d)+/
+    var str = 'zf2019zf2020';
+    reg.exec(str)// [2019]
+    // 贪婪性  + * {n,m} {n,}  在这些字符后 添加一个 ? 即可解决；
+    // 懒惰行  添加全局修饰符 g;
+    // 给正则添加上g之后，每一次的匹配或者捕获都会影响 改正则的lastIndex属性
+    // 这个属性是下一次正则开始匹配的起始索引；
+
+    RegExp.prototype.execAll = function(str){
+        // this 就是对应的正则
+        var _this = this;
+        if(!_this.global){
+            _this = eval(_this+'g')
+        }
+        var res = _this.exec(str);
+        var ary = [];
+        while(res){
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary
+    }
+    var reg = /\d+/g;
+    var str = 'zf2019zf2020';
+    reg.execAll(str);
+
+    // cookie
+    function getCookie(){
+        var reg = /([^ ;=]+)=([^ ;=]+)/g;
+        var ary = reg.execAll(document.cookie);
+        // console.log(ary);
+        var obj = {};
+        ary.forEach(a => {
+            obj[a[1]] = a[2]
+        });
+        return obj;
+    }
+    getCookie(); //{}
+
+
+    var reg = /^\d{6}(19[7-9]\d|20[01]\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{2}\d[\dX]$/;
+    var str = '53424219900325123X';
+    reg.exec(str);
+
+
+    // 捕获ID
+    var str = '<div id="container" class="main"> hello world</div>';
+    var reg = /id=['"](\w+)["']/;
+    reg.exec(str)
+
+    var reg = />([^><]+)</
+    console.log(reg.exec(str))
+
+
+
+
+
+</script>

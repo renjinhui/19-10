@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 一个字符串中出现次数最多的字符；
+    var  str = 'gfsdfgergbxbsrhfgbsfgwrgxcbsrdfg';
+
+    function getMax(str) {
+        // 
+        let obj = {};
+        for(let i =0 ; i < str.length; i++){
+            if(obj.hasOwnProperty(str[i])){
+                obj[str[i]] +=1;
+            }else{
+                obj[str[i]] = 1;
+            }
+        }
+        var s = '', n = 0;
+        for(let k in obj){
+            if(obj[k] > n){
+                n = obj[k];
+                s = k;
+            }
+        }
+        return {
+            key:s,
+            val:n
+        }
+    }
+
+    var reg = /(\d+?)\1+/g;//回溯
+    var str = '123123123123123123123123123';//
+    reg.exec(str)
+
+    var reg = /(\w)(\w)(\w)\3\2\1/;// qweewq
+    var str = 'qweewq';
+    reg.exec(str)
+
+    
+    var  str = 'gfsdfgergbxbsrhfgbsfgwrgxcbsrdfg';
+    function getMax2(str){
+        str = str.split('').sort().join(''); // qqqqqddddddttttxxxnnnw
+        let reg = /(\w)\1*/g;
+        var ary = str.match(reg); // ['qqqqq','eeeeee','rrrrrr']
+        ary.sort((a,b)=>{
+            return b.length - a.length
+        })
+        return {
+            key:ary[0][0],
+            val:ary[0].length
+        }
+    }
+
+
+    var  str = 'gfsdfgergbxbsrhfgbsfgwrgxcbsrdfg';
+    function getMax3(str){
+        str = str.split('').sort().join(''); // qqqqqddddddttttxxxnnnw
+        let reg = /(\w)\1*/g;
+        let s = '',n = 0;
+        str.replace(reg,function(a,b){
+            if(a.length > n){
+                n = a.length;
+                s = b;
+            }
+        })
+        return {
+            key :s,
+            val : n
+        }
+    }
+    getMax3(str);
+
+
+    // 2、 大小写反转 
+    var str = 'aHeLLo WorlD';
+    function turn(str){
+        var n = 0;
+        // return str.replace(/\w/g,function(a){
+        //     console.log(++n)
+        //     return a.toLowerCase() == a ? a.toUpperCase() : a.toLowerCase()
+        // })
+        var reg = /([A-Z]*)([a-z]*)/g;
+        return str.replace(reg,function(a,b,c){
+            console.log(a,b,c)
+            return b.toLowerCase() + c.toUpperCase()
+        })
+    }
+    turn(str);
+
+    // 3、 小写数字 转大写      //  var n = 3842.22   叁仟捌佰肆拾贰元贰角贰分
+    var str = '今年是2017年'; //
+    var ary = ['零', '壹', '贰', '叁', '肆', '伍', '陆','柒', '捌', '玖', '拾'];
+    str.replace(/\d/g,function(n){
+        console.log(n) // '0' '1'  '2' '7'
+        // debugger;
+        return ary[n]
+    })
+
+    // 4、模板引擎
+    var str = '姓名是：{{name}}，年龄是：{{age}}，性别是{{sex}}';
+    var data = {
+        name:"小明",
+        age:10,
+        sex:"男"
+    }
+    function formate(template,data){
+        let reg = /\{\{(\w+)\}\}/g;
+        return template.replace(reg,function(a,b){
+            console.log(a,b)// a {{name}}  b name
+            return data[b]
+        })
+    }
+
+    var str = '今天是{{year}}年{{month}}月{{date}}日';
+    function formateTime(str){
+        let time = new Date();
+        let year = time.getFullYear();
+        let month = time.getMonth()+1;
+        let date = time.getDate();
+        let reg = /\{\{(\w+)\}\}/g;
+        return str.replace(reg,function(a,b){
+            return eval(b)
+        })
+    }
+    formateTime(str);
+
+
+    // 5、千分符的实现
+    function formateMoney(str){
+        str = str.split('').reverse().join('');
+        let s = '';
+        for(let i = 0 ; i < str.length; i++){
+            if(i%3==2){
+                s += str[i]+','
+            }else{
+                s += str[i]
+            }
+        }
+        s = s.split('').reverse().join('');
+        return s.replace(/^,/,'');
+    }
+    var str = '123456';
+
+    function formateMoney2(str){
+        // var reg = /(\d{1,3})(?=(\d{3})+$)/g;
+        // return str.replace(reg,'$1,')
+        var reg = /\d{1,3}(?=(\d{3})+$)/g;
+        return str.replace(reg,function(a){
+            return a+','
+        })
+    }
+
+</script>
