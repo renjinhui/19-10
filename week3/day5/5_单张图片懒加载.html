@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            padding-top: 2000px;
+        }
+        img{
+            width: 400px;
+            height: 300px;
+            border:1px solid salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- https://img30.360buyimg.com/pop/s1180x940_jfs/t1/75497/1/9466/47740/5d723977E9c245206/5b7de79a5c375937.jpg -->
+        <img id='img' src="./img/1.jpg" alt="">
+    </div>
+</body>
+</html>
+<script src="./utils.js"></script>
+<script>
+    // 图片 露出一半的时候  把图片的地址换成真实地址；显示真实图片，其他时候显示默认图
+    // 怎么知道 露出一半
+    // 屏幕底边 到 body的偏移量 changeT  跟 元素顶边到 body的偏移量 t  进行对比；
+    // 当前 changeT > t    说明元素的顶边已经露出来了；
+    // 当前 changeT > t + h/2   说明元素的一半已经露出来了；
+    var img = document.getElementById('img');
+    let flag = false;
+    window.onscroll = function () {
+       loadImg(img)
+    }
+    function loadImg(ele){
+        if(ele.flag)return
+        let scT = document.body.scrollTop || document.documentElement.scrollTop;//卷去的高度
+        let wH = utils.winH().h;// 一屏幕的高度
+        let t = utils.offset(ele).t;// 当前元素到body的偏移量
+        let h = ele.clientHeight;
+        if(scT+wH > t+h/2){
+            // 说明图片露出一半了
+            console.log(666);
+            ele.flag = true;
+            // ele.src = 'https://img30.360buyimg.com/pop/s1180x940_jfs/t1/75497/1/9466/47740/5d723977E9c245206/5b7de79a5c375937.jpg'
+            let temp = new Image();
+            temp.src = 'https://img30.360buyimg.com/pop/s1180x940_jfs/t1/75497/1/9466/47740/5d723977E9c245206/5b7de79a5c375937.jpg';
+            temp.onload = function(){
+                // 这张图片加载完成之后 会触发该函数；
+                ele.src = 'https://img30.360buyimg.com/pop/s1180x940_jfs/t1/75497/1/9466/47740/5d723977E9c245206/5b7de79a5c375937.jpg';
+                fadeIn(ele);// 执行渐显的效果
+                temp = null;
+            }
+        }
+    }
+
+    function fadeIn(ele){
+        // 让图片的opacity从0变成1；
+        ele.style.opacity = 0;
+        let n = 0;
+        ele.timer = setInterval(()=>{
+            n+=0.01;
+            if(n>=1){
+                n = 1;
+                clearInterval(ele.timer);
+            }
+            ele.style.opacity = n;
+
+        },10)
+    }
+</script>

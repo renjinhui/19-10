@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* 
+        正则：  匹配test    捕获exec
+                字面量   var reg = /q/g
+                构造函数 var reg = new Regexp('q','g');
+            特殊元字符
+            \d  
+            \w
+            \
+            .
+            \n
+            ^
+            $
+            [ab]
+            [^ab]
+            [.]
+            [a-z]  小写字母
+            ()    分组
+
+            量词元字符
+            ?
+            *
+            +
+            {n}
+            {n,m}
+            {n,}
+
+        修饰符  
+        i   
+        m
+        g   
+        var reg = /\d+/img 
+    */
+    
+    var str = '20202022'
+    var reg = /^\d+$/;
+    reg.test(str);
+    
+    // 53423419983234421X  // 1970-2019  01-12   01-31
+    // 1970-2019   1970-1999 2000-2019
+    // 01-12  01-09 10-12
+    // 01 - 31  01-09 10-29 30-31
+    var reg = /^\d{6}(19[7-9]\d|20[01]\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{2}\d[\dX]$/
+
+    // /1\d{10}/  1[3-9]\d{9}
+
+    // 00:00-23:59     00-23  00-19  20-23; 00-59
+    var reg = /^([01]\d|2[0-3])[:：][0-5]\d$/;
+
+
+
+
+    //  捕获： 把字符串中符合正则的部分获取到
+    //  贪婪性  一次性能拿多少就拿多少  加一个 ?
+    //  懒惰行  就拿一次               加一个全局修饰符 g
+    //  正则有g属性  会影响正则lastIndex属性；
+    var reg = /([a-z]+)(\d+)/g;
+    var str = 'zf2020zf2021';
+    var res = reg.exec(str);// ['2020']
+    console.log(res)
+    var res = reg.exec(str);// ['2020']
+    console.log(res)
+
+
+    // 字符串中的方法  match  split    replace
+    // match 加上g之后， 可以一次性把所有的大正则捕获的内容全部获取到；但是获取不到小分组捕获的内容
+    var reg = /([a-z]+)(\d+)/g;
+    var str = 'zf2020zf2021';
+    var res = str.match(reg)
+    console.log(res);
+
+
+    let url = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13';
+    function getParam(url){
+        var reg = /([^=?&]+)=([^=?&#]+)/g;
+        var ary = url.match(reg);//['lx=1','from=wx',...]
+        var obj = {};
+        ary.forEach(item=>{
+            let a = item.split('=');
+            obj[a[0]] = a[1]
+        })
+        return obj;
+    }
+
+    // split('+')   split(/\d+/)
+    var str = 'aergq345er35fa453egsd5q335yrshsns.r5gerge34';
+    console.log(str.split(/\d+/))
+    console.log(str.split(/\d/))
+
+    // replace('-','/')
+    var str = '2019-08-09';
+    var res = str.replace('-','/').replace('-','/')
+    var res = str.replace(/-/g,'/')
+    var res = str.replace(/-/g,function(){
+        return '/'
+    })
+
+
+    var res = str.replace(/(-)/g,'$1=====');
+    let url = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13';
+    function getParam2(url){
+        var obj = {};
+        var reg = /([^=?&]+)=([^=?&#]+)/g;
+        str.replace(reg,function(a,b,c){
+            obj[b] = c
+        })
+        return obj;
+    }
+
+</script>
