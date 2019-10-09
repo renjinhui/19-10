@@ -1,0 +1,135 @@
+@font-face {font-family: "iconfont";
+    src: url('//at.alicdn.com/t/font_1449045_j50sv33b58j.eot?t=1570609840434'); /* IE9 */
+    src: url('//at.alicdn.com/t/font_1449045_j50sv33b58j.eot?t=1570609840434#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAN4AAsAAAAACFwAAAMpAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDQAqDUIMoATYCJAMYCw4ABCAFhG0HYBteB8iemjwpEbIBC0H4lhA4Y1EE1dq/Pbtz++7tBVkByniWiBpQxbH7FZUYHWMiZHQkgRH3v2vlPwByOb8sD1khDCSzWcq8zJ8DzAGWSNUTq6urI9UqJtcmQMBgIP9xr/LL2ALz2bfkPBykuQfl4umied4r4F4YKlkLElHvsbyuSeWZL35NoNvDI+lMR98gZErkpkA84ZYGmZWklHZlFFrHkyk+GIzlXXkGvNd/H/+FyqQYKvKti/faTWj6Bd97q5qVu1V5u50f9nNUHAWSeN4ZfCYlKx6VooffT3UK6EZF+eXbiW+nvvfOMxGpR03CodN/eYSiSgPRgNgqcFZp4BdwguDXCYLCr1MEld89fukWVTBlAG3DK3YCK/iIcI7yLyxpMkSC9JZnry9czoE+cWpvuAowRR8wXwUocA2u8+4l5bgG180vuszXhhXT4Ib+PlCvvvP+/Usb1w5LzfOqjF44dn2j3GEXD6+UZA3/5YcVPeniz1ffElhXKpKSiacy5jPVioIjq1lt1ilGMqy3ueP7bkX/0rBPTAT2EgeYM9/XhPyJEi/u0d5MTy9UFlXuubhftQ+2ymoVh8/nsawrynTTpDDzSFUe4e3CCsD8vPpSBgFmVatSlOb9Lk9qSflHeVVL//R2fP33zNq6/+OU4MvjozswNKuE+pbfZTJZ9V9VE5cy0hBXy2Axf1Sg2SsLlORQx/+MbvBuK/Pmye2E0eYCi4XdWI32QlKP4mByDJvRceyO6Hx+spGUInKJw3YQhnVuY7HGJ6zWeQ5JfYuDLf5is64U7K5HyRsn++PZrZJqSE2iLxJuiARjHsxOO/up5cY0WdZo7jCVDs+QoC9Qr3TSBJVb3OPMWSFERpgUcdKBvkdjMUFsKSLUQF8Y0a7x+1nXD/kMEYdsp0mUBlEmQreI4AxCApMHo+zG7/ejLK4YjRxYGIoOoyQHPz8R5BOYAJ3GxKSFV9nEMccSghBDMJIQR3QgPxWjRYGwuy+LoAzIJ7wgb6vhx6vYVKPveHP8KZ+CjmzSokSNjCFaLCwfcS2Bwl3guQszxZ4lV1i6RXZxaowyTJPcCiMAAAAA') format('woff2'),
+    url('//at.alicdn.com/t/font_1449045_j50sv33b58j.woff?t=1570609840434') format('woff'),
+    url('//at.alicdn.com/t/font_1449045_j50sv33b58j.ttf?t=1570609840434') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url('//at.alicdn.com/t/font_1449045_j50sv33b58j.svg?t=1570609840434#iconfont') format('svg'); /* iOS 4.1- */
+  }
+  
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-jiantouxi:before {
+    content: "\e600";
+  }
+  
+  .icon-x_jiantouzuo:before {
+    content: "\e68d";
+  }
+  
+  .icon-x_jiantouyou:before {
+    content: "\e68f";
+  }
+  
+  .icon-left:before {
+    content: "\e74a";
+  }
+  
+  .icon-right:before {
+    content: "\e74b";
+  }
+  
+  
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+#box{
+    width: 590px;
+    height: 470px;
+    /* overflow: hidden; */
+    position: relative;
+    margin: 30px auto;
+    border: 1px dashed salmon;
+    box-sizing: border-box;
+}
+.img_box{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.img_box ul{
+    width: 2360px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.img_box ul li{
+    float: left;
+    width: 590px;
+    height: 470px;
+    position: relative;
+}
+.img_box ul li img{
+    transition:all 0.5s; 
+}
+.img_box ul li:hover img{
+    transform: scale(1.2)
+}
+.img_box ul li .desc{
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    color:#fff;
+    line-height: 50px;
+    text-align: center;
+}
+.tip_box{
+    position: absolute;
+    bottom:-30px;
+    right: 0;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.tip_box .tip{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: rgb(221, 76, 76);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.tip_box .tip.current{
+    background: darkcyan
+}
+.btn_box{
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 50%;
+    margin-top: -25px;
+}
+.btn_box>div{
+    width: 30px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: rgba(228, 130, 130, 0.5);
+    cursor: pointer;
+    font-size: 20px;
+    color:#fff;
+}
+.left_btn{
+    float: left;
+}
+.right_btn{
+    float:right;
+}
