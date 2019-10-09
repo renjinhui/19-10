@@ -71,7 +71,7 @@
         a.toString = function(){
             return a[0]++
         }
-        
+
     var n = 1    
     var a = {
         toString(){
@@ -81,4 +81,20 @@
     if (a == 1 && a == 2 && a == 3 && a == 4) {
         console.log(1);
     }
+
+    function curry(fn,length){
+        length = length || fn.length;
+        return function(...arg){
+            if(arg.length >= length){
+                return fn.apply(this,arg)
+            }else{
+                return curry(fn.bind(this,...arg),length - arg.length)
+            }
+        }
+
+    }
+    function add(n1,n2,n3,n4) {
+        return n1+n2+n3+n4
+    }
+    let f = curry(add)
 </script>
