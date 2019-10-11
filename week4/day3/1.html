@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="box"></ul>
+</body>
+
+</html>
+<!-- <script src="./11.js"></script> -->
+<script>
+    function fn(ary) {
+        let n = 1906;
+        let res = [];
+        for (let i = 0; i < ary.length; i++) {
+            let t = ary[i][n + i];
+            let arr = [];
+            let y_m = null;
+
+            let obj = {};
+            for (let j = 0; j < t.length; j++) {
+                let t_y_m = t[j].year + '_' + t[j].month;
+                if (y_m === t_y_m) {
+                    obj[t_y_m].push(t[j])
+                } else {
+                    obj[t_y_m] = [t[j]];
+                    y_m = t_y_m
+                }
+
+            }
+            res.push(obj)
+        }
+        return res
+    }
+    // console.log(fn(ary))
+    var ary = [{index:1,name:123},{index:2,name:444},{index:3,name:555}];
+    var str = '';
+    ary.forEach(item=>{
+        str += `<li><i>序号${item.index}</i>====<span>${item.name}</span> <a qqq=${item.index}>删除</a></li>`
+    });
+    box.innerHTML = str;
+    var as = document.getElementsByTagName('a');
+    for(let i = 0 ; i < as.length; i++){
+        as[i].onclick = function(){
+            console.log(this.getAttribute('qqq'))
+        }
+    }
+</script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="./11.js"></script>
+<script>
+    function fn(ary) {
+        let n = 1906;
+        let res = [];
+        for (let i = 0; i < ary.length; i++) {
+            let t = ary[i][n + i];
+            let arr = [];
+            let y_m = null;
+
+            let obj = {};
+            for (let j = 0; j < t.length; j++) {
+                let t_y_m = t[j].year + '_' + t[j].month;
+                if (y_m === t_y_m) {
+                    obj[t_y_m].push(t[j])
+                } else {
+                    obj[t_y_m] = [t[j]];
+                    y_m = t_y_m
+                }
+
+            }
+            res.push(obj)
+        }
+        return res
+    }
+    console.log(fn(ary))
+</script>
