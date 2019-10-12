@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://www.swiper.com.cn/package/css/swiper.min.css">
+    <style>
+        .box {
+            width: 400px;
+            height: 500px;
+        }
+
+        .box .item {
+            height: 500px;
+            line-height: 500px;
+            font-size: 30px;
+        }
+    </style>
+    <style>
+        body {
+            background: #fff;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            导航
+        </nav>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-1.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-2.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-3.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-4.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-5.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-6.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-7.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-8.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-9.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(https://www.swiper.com.cn/demo/images/nature-1.jpg0)"></div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+
+    </header>
+    <main>珠峰培训</main>
+    <footer>尾部部</footer>
+</body>
+
+</html>
+<script src="https://www.swiper.com.cn/package/js/swiper.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+</script>
