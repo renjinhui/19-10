@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    var $ = 123;
+    
+</script>
+<script src="./jquery-3.3.1.js"></script>
+<script>
+    var qqq = $.noConflict();
+    console.log($)
+</script>
+
+<script src = ''>
+    (function (global, factory) {
+        // 兼容 node.js
+        if (false) {
+
+        } else {
+            factory(global)
+        }
+    })(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
+        var
+            version = "3.3.1",
+
+            // Define a local copy of jQuery
+            jQuery = function (selector, context) {
+                // The jQuery object is actually just the init constructor 'enhanced'
+                // Need init if jQuery is called (just allow error to be thrown if not included)
+                return new jQuery.fn.init(selector, context);
+                //  A  ---> new jQuery.fn.init(selector, context)
+                // A.__proto__ = jQuery.fn.init.prototype;
+                // init.prototype = jQuery.fn;
+                //A.__proto__ = jQuery.fn.init.prototype = init.prototype = jQuery.fn = jQuery.prototype
+                // A.__proto__ =  jQuery.prototype
+            };
+        jQuery.fn = jQuery.prototype = {
+            // 原型重构 需要保证constructor 的指向；
+            constructor: jQuery,
+            toArray: function () {
+                return slice.call(this);
+            },
+        }
+        jQuery.extend = jQuery.fn.extend = function () {}
+        jQuery.extend({
+            isReady: true,
+            isEmptyObject: function (obj) {
+
+                /* eslint-disable no-unused-vars */
+                // See https://github.com/eslint/eslint/issues/6125
+                var name;
+
+                for (name in obj) {
+                    return false;
+                }
+                return true;
+            },
+        })
+
+        var init = jQuery.fn.init = function (selector, context) {}
+        init.prototype = jQuery.fn;
+
+        var
+
+            // Map over jQuery in case of overwrite
+            _jQuery = window.jQuery,
+
+            // Map over the $ in case of overwrite
+            _$ = window.$; // 123
+
+        jQuery.noConflict = function (deep) {
+            if (window.$ === jQuery) {
+                window.$ = _$;
+            }
+
+            if (deep && window.jQuery === jQuery) {
+                window.jQuery = _jQuery;
+            }
+
+            return jQuery;
+        };
+
+        // Expose jQuery and $ identifiers, even in AMD
+        // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
+        // and CommonJS for browser emulators (#13566)
+        if (!noGlobal) {
+            window.jQuery = window.$ = jQuery;
+        }
+
+
+
+
+        return jQuery;
+    });
+</script>
