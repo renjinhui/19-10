@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div id='box' style='background:red;height: 300px;'></div>
+        <button>红</button>
+        <button>绿</button>
+        <button>蓝</button>
+</body>
+</html>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    function A(){
+        console.log("A")
+        console.log(this)
+        console.log(arguments)
+    }
+    function B(){
+        console.log('B')
+        console.log(this)
+        console.log(arguments)
+    }
+
+    B.call.call.call(A,1,2,3);// B.call FN
+    //FN.call(A,1,2,3)  FN中的this 本来是B 现在换成了 A;  A.call(1,2,3)
+
+    Function.prototype.myCall = function(context,...arg){
+        // this 就是函数 this(...arg)
+        var a = Symbol();
+        context[a] = this;
+        let res = context[a](...arg);
+        delete context[a]
+        return res;
+    }
+
+    // [...arg]  Arry.from()  Array.prototype.slice.call(arg,0)
+    // Math.round(Math.random()*(n-m)+m)
+
+    var  colorAry=['red','green','blue']
+    $('button').on('click',function(){
+        var n = $(this).index('button');
+        $('#box').css({background:colorAry[n]})
+    })
+    // var box=document.querySelector('#box'),
+    //     btnList=document.querySelectorAll('button'),
+    //     colorAry=['red','green','blue'];
+    // for(var i=0;i<btnList.length;i++){
+    //     btnList[i].onclick=function(){
+    //         box.style.background=colorAry[i];
+    //     }
+    // }
+
+    // for(let i=0;i<btnList.length;i++){
+    //     btnList[i].onclick=function(){
+    //         box.style.background=colorAry[i];
+    //     }
+    // }
+
+    // for(var i=0;i<btnList.length;i++){
+    //     (function(i){
+    //         btnList[i].onclick=function(){
+    //             box.style.background=colorAry[i];
+    //         }
+    //     })(i)
+    // }
+
+    // for(var i=0;i<btnList.length;i++){
+    //     btnList[i].onclick=(function(){
+    //         return function(){
+    //             box.style.background=colorAry[i];
+    //         }
+    //     })(i)
+    // }
+
+
+    function flatten(ary){
+        var temp = [];
+        function fn(ary){
+            ary.forEach(item=>{
+                if(typeof item == 'object'){
+                    fn(item);
+                }else{
+                    temp.push(item)
+                }
+            })
+        }
+        fn(ary)
+        return temp;
+    }
+    let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9,[11, 12, [12, 13, [14]]]], 10];
+
+
+    function _new(Fn,...arg){
+        var obj = {};// new Object;
+        obj.__proto__ = Fn.prototype;
+        var res = Fn.apply(obj,arg);
+        return typeof res == 'object' ? res : obj;
+    }
+    // new Dog();
+
+    function create(pro){
+        let obj = {};
+        obj.__proto__ = pro;
+        return obj;
+    }
+
+    function getMax(str){
+        str = str.split('').sort().join('');
+        var key = '' , num = 0;
+        str.replace(/(\w)\1*/g,function(a,b){
+            if(a.length > num){
+                num = a.length;
+                key = b
+            }
+        })
+        return {
+            key,num
+        }
+    }
+</script>
