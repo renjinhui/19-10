@@ -104,7 +104,7 @@
         }, false);
     }
     Drag.prototype.move = function (e) {
-        // this是当前的实例
+        // this是当前的实例//        e.pageX - o.l
         this.style.left = e.pageX - this.sx + 'px';
         this.style.top = e.pageY - this.sy + 'px';
     }
