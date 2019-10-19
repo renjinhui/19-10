@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body >
+    <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+    <input type="text" id='inp'>
+</body>
+</html>
+<script>
+    /* 
+        鼠标事件  click
+                 dblclick
+                 contextmenu
+                 mousedown
+                 mouseup
+                 mouseenter
+                 mouseleave
+                 mouseover
+                 mouseout
+                 mousewheel
+                 mousemove
+        键盘事件  keydown
+                 keyup
+                 keypress
+            可以绑定键盘事件的元素   input  document window textarea  button   div+contenteditable
+        input事件 
+               oninput
+               onchange  内容发生改变 并且失焦
+               onblur    失焦时 触发
+               onfocus   聚焦时 触发   事件
+               focus()   让该元素 聚焦 
+               blur()    让该元素 失焦 
+        
+        系统事件  onscroll
+                 onresize
+                 onload  页面资源加载完成
+                 $(document).ready(function(){}) DOM 结构加载完成  DOMContentLoaded
+
+
+    */
+    inp.focus();
+    window.onresize = function(){
+        document.write(666);
+    }
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 事件池   订阅   发布   取消订阅
+    var ary = [];
+    function on(f){
+        if(ary.indexOf(f)==-1){
+            ary.push(f);
+        }
+    }
+    function fire(...arg){
+        ary.forEach(item=>{
+            item.call(this,...arg)// 目的是让ITEM执行 只是保证this指向和参数的问题
+        })
+    }
+
+    function off(f){
+        let n = ary.indexOf(f);
+        if(n != -1){
+            ary.splice(n,1)
+        }
+    }
+</script>

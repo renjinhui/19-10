@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #outer{
+            width: 300px;
+            height: 300px;
+            background: salmon
+        }
+        #inner{
+            margin:50px auto;
+            width: 200px;
+            height: 200px;
+            background: blue
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    //  事件传播的机制  冒泡传播
+    //  先捕获到具体点击的元素 （处理目标元素） 然后再从该元素一层一层的向外冒；
+    //  阻止冒泡  e.stopPropagation() e.cancelBubble = true
+    //  击穿 由于冒泡的存在导致的；
+
+    // 阻止默认事件  e.preventDefault()   return false;
+    // 默认事件和绑定的事件  绑定事件先执行；但是滚动事件的触发是正好相反的；
+    let temp = '';
+    outer.onclick = function(e){
+        console.log('outer',e == temp)
+        
+    }
+    inner.onclick = function(e){
+        console.log('inner',e)
+        temp = e
+    }
+</script>
