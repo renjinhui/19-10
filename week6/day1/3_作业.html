@@ -174,7 +174,9 @@
             let p = document.getElementsByClassName(type)[0];
             p.innerHTML = `<span class="desc">${tar.innerHTML}</span>
                             <span class="cancel">X</span>`
-            p.style.display = 'block';                
+            p.style.display = 'block';  
+            return 
+            12345              
         } 
     }
     top1.onclick = function(e){
@@ -184,4 +186,13 @@
             tar.parentNode.style.display = 'none';
         }
     }
+
+    const length = 4;
+    const numbers = [];
+    for (var i = 0; i < length; i++);
+    {
+        numbers.push(i + 1);
+    }
+
+    numbers; // => ???
 </script>
