@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #dialog{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            top:0;
+            left: 0;
+        }
+        .center{
+            width: 400px;
+            background: #fff;
+            padding: 20px;
+            /* position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%); */
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            max-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id='box'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <ul id='target'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <button id="btn">按钮</button>
+
+    <!-- <div id="dialog" >
+            <div class="center">
+                    你好
+                    <div>
+                            <button >取消</button>
+                            <button>确定</button>
+                    </div>
+                    
+                </div>
+        </div> -->
+</body>
+
+</html>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    var box = document.getElementById('box');
+    let li = document.createElement('li');
+    li.innerHTML = 4;
+    // box.appendChild(li);
+    // box.insertBefore(li,box.querySelector('li:nth-child(2)'));
+    // box.insetBefore(newEle,oldEle);; 在oldEle元素前边插入一个newEle ；
+    Element.prototype.insertAfter = insertAfter;
+
+    function insertAfter(newEle, originEle) {
+        //=>newEle:新插入的元素
+        //=>originEle:指定的老元素
+        let next = originEle.nextElementSibling;
+
+        if (next) {
+            // this.insertBefore(newEle, next)
+            originEle.parentNode.insertBefore(newEle, next)
+        } else {
+            // this.appendChild(newEle)
+            originEle.parentNode.appendChild(newEle)
+        }
+    }
+    box.insertAfter(li, box.querySelector('li:nth-child(1)'));
+
+    // function insertAfter(newEle, originEle) {
+    //     let first = document.createElement(newEle);
+    //     let sender = getElementbyId(originEle);
+    //     originEle.parentNode.insertAfter(first, sender)
+    // }
+
+    var box = document.getElementById('target'),
+	olis = box.querySelectorAll('li');
+    var ary = [...olis].reverse();
+
+    var frag = document.createDocumentFragment();// 文档碎片
+    ary.forEach(item=>{
+        frag.appendChild(item)
+    });
+    box.appendChild(frag);
+
+    $('#btn').on('click',function(){
+        let div = document.createElement('div');
+        div.id = 'dialog';
+        div.innerHTML = `<div class="center">
+                你好
+                <div id='btnBox'>
+                        <button id='cancel'>取消</button>
+                        <button id='sure'>确定</button>
+                </div>
+                
+            </div>`;
+        document.body.appendChild(div);   
+        var $btns = $('#btnBox button');
+        $btns.on('click',function(){
+            document.body.removeChild(div);   
+        })
+    });
+
+    function Parent(){
+        this.q = 12;
+        this.w = 13;
+    }
+    function Child(){
+        Parent.call(this);
+        this.e= 14;
+    }
+    // Child.prototype = new Parent();
+    let obj = {};
+    Child.prototype = Object.create(Parent.prototype)
+    new Child();
+
+
+    let str = 'hello<img  alt="哈哈"   src="haha.png" />world';
+    // =>正确匹配输出 "hello[哈哈]world"
+    str.replace(/\<.*alt=["']/,'[').replace(/["'].*\/\>/,']')
+
+
+/* 
+    在函数式编程当中有一个很重要的概念就是函数组合， 实际上就是把处理数据的函数像管道一样连接起来， 然后让数据穿过管道得到最终的结果。 例如：
+    const add1 = (x) => x + 1;
+    const mul3 = (x) => x * 3;
+    const div2 = (x) => x / 2;
+    div2(mul3(add1(add1(0)))); //=>3
+
+    而这样的写法可读性明显太差了，我们可以构建一个compose函数，它接受任意多个函数作为参数（这些函数都只接受一个参数），然后compose返回的也是一个函数，达到以下的效果：
+    const operate = compose(div2, mul3, add1, add1)
+    operate(0) //=>相当于div2(mul3(add1(add1(0)))) 
+    operate(2) //=>相当于div2(mul3(add1(add1(2))))
+
+    简而言之：compose可以把类似于f(g(h(x)))这种写法简化成compose(f, g, h)(x)，请你完成 compose函数的编写 
+*/
+    const add1 = (x) => x + 1;
+    const mul3 = (x) => x * 3;
+    const div2 = (x) => x / 2;
+    div2(mul3(add1(add1(0)))); //=>3
+    function compose(){
+        let ary = [...arguments];//[div2, mul3, add1, add1]
+        return function(n){
+            // ary.reverse().forEach(item=>{
+            //     n = item(n)
+            // })
+            // return n
+            let res = n;
+            for(let i = ary.length-1; i >=0; i--){
+                res = ary[i](res)
+            }
+            return res;
+        }
+    }
+    const operate = compose(div2, mul3, add1, add1)
+    operate(0) //=>相当于div2(mul3(add1(add1(0)))) 
+    
+
+    /* 
+        [结构]
+        <ul>
+            <li><a href='http://xxx'>xxx</a></li>
+            <li><a href='http://sss'>sss</a></li>
+            <li><a href='http://sss'>sss</a></li>
+            <li><a href='http://sss'>sss</a></li>
+            <li><a href='http://sss'>sss</a></li>
+            <li><a href='http://sss'>sss</a></li>
+        </ul> 
+        点击第一个LI创建对象： 
+        {
+            index: 1,
+            name: 'xxx',
+            link: 'http://xxx'
+        }
+        同样点击第二个LI创建对象 
+        {
+            index: 2,
+            name: 'sss,
+            link: 'http://sss'
+        }
+    */
+</script>
