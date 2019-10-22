@@ -94,4 +94,23 @@
     },{passive:true});
     // passive true : 先执行默认事件 后执行绑定事件
     //         false: 先执行绑定的事件  后执行默认事件
+    var name = "WINDOW";
+function fn(){
+    console.log(this.name);
+}
+var obj = {
+    name:"OBJ",
+    fn:()=>{
+        console.log(this.name);
+    }
+};
+fn();
+obj.fn();
+fn.call(obj);
+window.onload=function(){
+    //页面加载完成，事件就会触发
+    fn();
+    obj.fn();
+};
+fn.bind(obj);
 </script>

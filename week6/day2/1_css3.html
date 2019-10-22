@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 200px;
+            height: 400px;
+            padding: 20px;
+            /* opacity: 0; */
+            border:10px solid rgba(0,0,0,0.3);
+            background: url('../../week5/day2/img/2.jpg') center center no-repeat;
+            /* background-origin: content-box; */
+            /* background-clip: padding-box; */
+            background-size: 100% 100%;
+            /* transition: height 1s 1s ease,opacity 4s 1s ease-in-out,width 1s ease-in; */
+        }
+        /* #box:hover{
+            height: 600px;
+            opacity: 1;
+            width: 300px;
+        } */
+        /* body{
+            background: url('../../week5/day2/img/2.jpg') center center no-repeat;
+            background-attachment: fixed;
+            height: 2000px;
+        } */
+        h1{
+            font-size: 50px;
+            text-align: center;
+            text-shadow: 1px 1px 1px blue;
+            color:#fff;
+            -webkit-text-stroke: 2px blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    
+    <h1>hello world</h1>
+</body>
+</html>
+<script>
+    let box = document.getElementById('box');
+    box.addEventListener('transitionend',function(){
+        console.log(666)
+    },false);
+    box.addEventListener('webkitTransitionEnd',function(){
+
+    },false);
+</script>

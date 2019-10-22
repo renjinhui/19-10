@@ -1,0 +1,131 @@
+/* 
+    less    1、嵌套写法
+            2、可以书写变量
+            3、混合
+            4、函数
+            5、循环
+
+*/
+
+.qqq (@n,@a) when (@n < 10){
+    .box_@{n}{
+        width: @a*@n;
+    };
+    .qqq(@n+1,@a);
+};
+.qqq(1,10px);
+
+.www(@n,@a) when(@n<=200){
+    .list-@{n}{
+        width:@n + @a
+    };
+    .www(@n+10,@a)
+}
+.www(10,0px);
+
+
+.mystyle(@a:300px,@b:300px){
+    // less的函数 形参可以赋予默认值；
+    width: @a;
+    height: @b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+@keyframes move{
+    0%{
+        transform: rotateX(0)  rotateY(0);
+    }
+    100%{
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+@w:600px; // 声明一个变量@w 对应的值是  200px 
+@b:box;
+@img:'../img/';
+.lt{
+    float: left;
+}
+.rt{
+    float: right;
+}
+.w{
+    // width: 100%;
+    // height: 100%;
+    .mystyle(200px,300px);
+    overflow: hidden;
+    .qqq{
+        background: red;
+    }
+}
+div{
+    .w; // 直接把w的所有样式都复制过来
+}
+span:extend(.w){
+    // 只混合.w自己的样式  不会混合后代的样式
+
+}
+#@{b} {
+    @w:300px;
+    width: @w;
+    height: @w;
+    margin: 150px auto;
+    position: relative;
+    perspective: 2000px;
+    background: url('@{img}1.jpg');
+    &:hover{
+        background: red;
+    }
+    ul{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transform: rotateX(45deg) rotateY(30deg);
+        animation: move 2s infinite linear;
+        transform-origin: @w/2  @w/2  @w/2;
+        li{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: @w;
+            background: rgba(102, 212, 216, 0.6);
+            border:1px dashed salmon;
+            box-sizing: border-box;
+            &:nth-child(2){
+                // & 就代表了当前的父级元素
+                background: rgba(139, 148, 233, 0.6);
+                transform: rotateX(-90deg);
+                transform-origin: bottom
+            }
+            &:nth-child(3) {
+                background: rgba(170, 96, 219, 0.6);
+                transform: rotateY(90deg);
+                transform-origin: right
+            }
+            &:nth-child(4) {
+                background: rgba(205, 236, 89, 0.6);
+                transform: rotateY(-90deg);
+                transform-origin: left
+            }
+            &:nth-child(5) {
+                background: rgba(159, 219, 153, 0.6);
+                transform: rotateX(90deg);
+                transform-origin: top
+            }
+            &:nth-child(6){
+                background: rgba(233, 171, 91, 0.6);
+                transform:  translateZ(@w);
+            }
+        }
+        & :nth-child(2){
+
+        }
+    }
+}
