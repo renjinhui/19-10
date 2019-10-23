@@ -1,0 +1,23 @@
+@a:75rem;
+*{
+    margin: 0;
+    padding: 0;
+}
+#box{
+    width: 350/@a;
+    height: 100/@a;
+    background: red;
+}
+#box{
+    width: 350px;
+    height: 100px;
+    background: red;
+}
+
+@media all and (max-width:750px){
+    #box{
+        width: 100px;
+        height: 100px;
+        background: blue
+    }
+}

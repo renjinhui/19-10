@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // underscore.js    loadsh.js  
+    var ary = [{
+        a: 1
+    }, {
+        b: 2
+    }, {
+        c: 3
+    }];
+    // var ary = [1,2,3];
+    var arr = ary.map(item => item);
+    arr[0].a = 100;
+
+    // 深拷贝   JSON.parse(JSON.stringify(ary));
+    var obj1 = {
+        a: 12,
+        b: 13,
+        c: 14
+    };
+    var obj = {
+        a: {
+            b: 12,
+            c: {
+                d: {
+                    e: 123
+                }
+            }
+        },
+        z: {
+            x: 1
+        }
+    }
+
+    function clone(obj) {
+        var _obj = {};
+        /* for (var k in obj) {
+            if (typeof obj[k] == 'object') {
+                _obj[k] = clone(obj[k])
+            } else {
+                _obj[k] = obj[k]
+            }
+
+        } */
+        if(typeof obj == 'object'){
+            for(var k in obj){
+                _obj[k] = clone(obj[k])
+            }
+        }else{
+            _obj = obj;
+        }
+        return _obj;
+    }
+
+    var temp = clone(obj);
+
+    function isTypeOf(ele,type){
+        let str = Object.prototype.toString.call(ele).match(/ (\w+)\]/)[1]
+        return str.toLowerCase() === type.toLowerCase();
+    }
+    let DFSdeepClone = (obj, visitedArr = []) => {
+        let _obj = {}
+        if (isTypeOf(obj, 'array') || isTypeOf(obj, 'object')) {
+            let index = visitedArr.indexOf(obj)
+            _obj = isTypeOf(obj, 'array') ? [] : {}
+            if (~index) { // 判断环状数据  
+                _obj = visitedArr[index]
+            } else {
+                visitedArr.push(obj)
+                for (let item in obj) {
+                    _obj[item] = DFSdeepClone(obj[item], visitedArr)
+                }
+            }
+        } else if (isTypeOf(obj, 'function')) {
+            _obj = eval('(' + obj.toString() + ')');
+        } else {
+            _obj = obj
+        }
+        return _obj
+    }
+
+    var t = DFSdeepClone(obj);
+</script>
