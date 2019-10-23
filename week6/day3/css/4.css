@@ -24,7 +24,6 @@ body #box {
 body #box ul {
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(45deg) rotateY(30deg);
   transform-origin: 2.5rem 2.5rem -2.5rem;
   width: 5rem;
   height: 5rem;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<script>
+    let w = document.documentElement.clientWidth||document.body.clientWidth;
+    document.documentElement.style.fontSize = w*100/750+'px';
+    window.onresize = function(){
+        let w = document.documentElement.clientWidth||document.body.clientWidth;
+        document.documentElement.style.fontSize = w*100/750+'px';
+    }
+</script>
+<body>
+    <section class='loadingBox '>
+        <h1>珠峰培训</h1>
+        <h2>H5场景的交互简历</h2>
+        <div class="progressBox">
+            <div class="progress"></div>
+        </div>
+        
+    </section>
+    <section class="phoneBox ">
+        <header>
+            <h1>珠峰培训</h1>
+            <h2>www.zhufengpeixun.com</h2>
+            <h3>00:00</h3>
+        </header>
+        <footer>
+            <div class="circle"></div>
+        </footer>
+        <div class="overBox bot">
+
+        </div>
+        
+    </section>
+    <section class="chatBox"></section>
+</body>
+</html>
+<script src="./js/index.js"></script>

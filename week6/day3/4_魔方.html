@@ -20,3 +20,22 @@
     </div>
 </body>
 </html>
+<script>
+    let box = document.getElementById('box'),
+        ul = box.querySelector('ul')
+    let x = y = 0;// 初始角度
+    box.ontouchstart = function(e){
+        this.sx = e.touches[0].pageX;
+        this.sy = e.touches[0].pageY;
+    }
+    document.ontouchmove = function(e){
+        let {pageX,pageY} = e.changedTouches[0];
+        console.log(pageX - box.sx);
+        ul.style.transform = `rotateY(${x+pageX - box.sx}deg)  rotateX(${y+pageY - box.sy}deg)`
+    }
+    document.ontouchend = function (e) {
+        let {pageX,pageY} = e.changedTouches[0];
+        x = x+pageX - box.sx;
+        y = y+pageY - box.sy;// 更新x 和 y
+    }
+</script>

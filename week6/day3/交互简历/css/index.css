@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hide {
+  display: none;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+}
+html > section,
+body > section {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+html section.loadingBox,
+body section.loadingBox {
+  background: #333;
+  transition: opacity 1s 1s;
+  z-index: 30;
+  text-align: center;
+  color: #fff;
+}
+html section.loadingBox h1,
+body section.loadingBox h1 {
+  font-size: 0.9rem;
+  position: relative;
+  top: 25%;
+}
+html section.loadingBox h2,
+body section.loadingBox h2 {
+  font-size: 0.6rem;
+  position: relative;
+  top: 30%;
+}
+html section.loadingBox .progressBox,
+body section.loadingBox .progressBox {
+  width: 80vw;
+  height: 0.4rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  margin: auto;
+  background: #fff;
+  position: relative;
+  top: 45%;
+}
+html section.loadingBox .progressBox .progress,
+body section.loadingBox .progressBox .progress {
+  width: 0%;
+  transition: width 1s;
+  height: 0.4rem;
+  background: linear-gradient(45deg, #6faa6d 0%, #6faa6d 25%, #77c570 25%, #77c570 50%, #6faa6d 50%, #6faa6d 75%, #77c570 75%, #77c570 100%);
+  background-size: 0.4rem 0.4rem;
+}
+html section.phoneBox,
+body section.phoneBox {
+  background: url('../images/phone-bg.jpg');
+  background-size: cover;
+  z-index: 20;
+}
+html section.phoneBox header,
+body section.phoneBox header {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  top: 0.5rem;
+}
+html section.phoneBox header h1,
+body section.phoneBox header h1 {
+  font-size: 0.9rem;
+}
+html section.phoneBox header h2,
+body section.phoneBox header h2 {
+  font-size: 0.27rem;
+}
+html section.phoneBox footer,
+body section.phoneBox footer {
+  width: 90vw;
+  height: 63vw;
+  left: 5vw;
+  background: url('../images/phone-listen.png');
+  background-size: contain;
+  position: absolute;
+  bottom: 0.5rem;
+}
+html section.phoneBox footer .circle,
+body section.phoneBox footer .circle {
+  width: 23vw;
+  height: 23vw;
+  border: 1px solid #77c570;
+  border-radius: 50%;
+  position: absolute;
+  left: 65.5vw;
+  top: 28.5vw;
+  animation: move 0.8s infinite linear;
+}
+html section.phoneBox .overBox,
+body section.phoneBox .overBox {
+  width: 90vw;
+  background: url('../images/phone-key.png');
+  height: 115vw;
+  background-size: contain;
+  position: absolute;
+  left: 5vw;
+  bottom: 0.2rem;
+  transition: all 0.5s;
+}
+html section.phoneBox .bot,
+body section.phoneBox .bot {
+  transform: translateY(110%);
+}
+@keyframes move {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.4);
+  }
+}
