@@ -22,7 +22,14 @@ function loadBox() {
             }
         }
     })
-    btn.ontouchend = function () {
+    btn.ontouchstart = function (e) {
+        this.sx = e.touches[0].pageX
+        this.sy = e.touches[0].pageY
+    }
+    btn.ontouchend = function (e) {
+        let cx = Math.abs(e.changedTouches[0].pageX-this.sx)
+        let cy = Math.abs(e.changedTouches[0].pageY-this.sy)
+        if(cx >=20 || cy>=20)return;
         loadingBox.style.opacity = 0;
         loadingBox.addEventListener('transitionend', function (e) {
             // console.log(e)
