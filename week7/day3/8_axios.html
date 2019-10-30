@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./axios.js"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src=''>
+    /* axios.get('./data.json',{params:{a:666,b:777}}).then(function(data){
+        console.log(data)
+    },function(err){
+        console.log(err)
+    })
+    axios.post('./data3.json',{
+        a:123,
+        b:234
+    }).then((data)=>{
+        console.log(data)
+    },(err)=>{
+        console.log(err)
+    })
+    axios({
+        method:'get',
+        url:'./data2.json',
+        /* params:{
+            // params 属性是为get准备的
+            a:12,
+            b:13
+        } */
+    /* data:{
+        // data属性是为post准备的
+        q:12,
+        b:23
+    } */
+    }).then((data) => {
+        console.log(data);
+    }, (err) => {
+        consolelog(err);
+    }) * /
+</script>
+<script>
+    // 跨域：  协议  域名  端口 三者只要有一个不一样； 那就是跨域
+    // 同源策略： 浏览器的安全机制；
+    axios.defaults.baseURL = 'http://127.0.0.1:5500/classic/week7/day3';
+    axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    axios.defaults.transformRequest = function (data = {}) {
+        // 所有请求在发出去的时候 都会走该函数
+        // console.log(data);
+        let str = '';
+        for (let k in data) {
+            str += `&${k}=${data[k]}`
+        }
+        return str.slice(1)
+    }
+    // 添加请求拦截器
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        console.log(config)
+        if (config.method == 'get') {
+            config.params.token = 123454345
+        } else {
+            config.data.token = 1234543234565;
+        }
+
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    axios.interceptors.response.use(function (response) {
+        // 对响应数据做点什么
+        console.log(response)
+        return response.data;
+    }, function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+    // axios.post('/data1.json', {
+    //     "userid": "zhangsan",
+    //     "name": "张三"
+    // })
+    // axios.post('/data2.json', {
+    //     "userid": "zhangsan",
+    //     "name": "张三"
+    // })
+    // axios.get('/data3.json', {
+    //     params: {
+    //         a: 12,
+    //         b: 23
+    //     }
+    // })
+    axios.post('https://www.souyidai.com/export/invest/p2pData', {}).then((data) => {
+        console.log('data', data)
+    });
+
+
+    /* 
+        axios.get(url,{params:{参数}})
+        axios.post(url,{参数})
+        axios({
+            method:'get',
+            url:''
+            data:{}
+            params:{}
+            headers:{}
+            timeout,
+            transformRequest:[f1,f2,f3,f4,f5,f6]
+            transformResponse:[f1,f2,f3]
+        })
+        // 全局配置： 
+        axios.defaults.baseURL
+
+        var http = axios.create({
+            baseURL:'',
+            timeout:'',
+            headers:{}
+            timeout,
+            transformRequest:[f1,f2,f3,f4,f5,f6]
+            transformResponse:[f1,f2,f3]
+        })
+    
+    */
+    
+</script>
