@@ -21,8 +21,11 @@ $(function () {
     }
     role();
 
-    function getData(){
-        axios.get('/user/list').then((data)=>{
+    function getData(options={}){
+        // options是传进来的搜索条件
+        axios.get('/user/list',{
+            params:options
+        }).then((data)=>{
             console.log(data)
             render(data.data);
             $selectItems = $('.tableBox tbody input[type=checkbox]');
@@ -31,7 +34,7 @@ $(function () {
             alert('系统繁忙')
         })
     }
-    function render(data){
+    function render(data=[]){
         let str = '';
         data.forEach(item=>{
             let {id,name='',sex='',email='',phone='',department='',jobId='',job='',desc=''} = item;
@@ -51,7 +54,7 @@ $(function () {
                     ${
                         canShow ? 
                         `<td class="w12 btnBox">
-                            <a href="javascript:;">编辑</a>
+                            <a href="./useradd.html?id=${id}">编辑</a>
                             <a href="javascript:;" data-id=${id}>删除</a>
                             <a href="./reset.html?id=${id}" data-id=${id}>重置密码</a>
                         </td>`:''
@@ -104,4 +107,55 @@ $(function () {
             }
         })
     }
+
+    //获取下拉列表要展示的内容
+    function initSelect(){
+        axios.get('/department/list').then(data=>{
+            let str = '<option value="0">全部</option>';
+            data.data.forEach(item=>{
+                str += `<option value="${item.id}">${item.name}</option>`
+            })
+            $('.selectBox').html(str);
+        })
+    }
+    initSelect();
+
+    // 选中下拉框指定内容时触发的函数
+    $('.selectBox').on('change',function(){
+        console.log(this.value)
+        getData({departmentId:this.value})
+    })
+
+    // 实现搜索框功能
+    $('.searchInp').on('keydown',function (e) {
+        if(e.keyCode == 13){
+            // 敲的回车键
+            getData({
+                departmentId:$('.selectBox')[0].value,
+                search:this.value
+            })
+            this.value = '';// 敲回车清空内容
+        }
+    })
+
+    // 实现批量删除
+    function batchDelete(){
+        let items = $('tbody tr').get().filter(item=>{
+            // 返回true 就把当前像放到新数组中
+            return $(item).find('input[type="checkbox"]')[0].checked
+        })
+        //items 中存放的就是 选中的那几个 tr 
+        let ary = [];
+        items.forEach(item=>{
+            // 获取要删除的这条数据的ID
+            let id = $(item).find('a:nth-child(2)').attr('data-id');
+            let p = axios.get('/user/delete?userId='+id)
+            ary.push(p);
+        })
+        axios.all(ary).then(data=>{
+            console.log(data)
+            debugger
+        })
+    }
+    $deleteAll.on('click',batchDelete)
 })
