@@ -39,3 +39,13 @@ http.post = function(url,data){
         data
     })
 }
+
+
+
+http('',{
+    headers:{
+
+    }
+})
+http.get()
+http.post()

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /* let p = new Promise(function(resolve,reject){
+        console.log('fn')
+        console.log(qqq)
+        resolve(666)
+    }).then(()=>{},()=>{}); */
+    
+    function MyPromise(exector){
+        let self = this;
+        self.value = undefined;// 存储成功状态下的值
+        self.reason = undefined;// 存储失败状态下的原因
+        self.status = 'pending';// 存储promise的状态
+        self.resCallback = [];// 存储成功的回调函数
+        self.rejCallback = [];// 存储失败的回调函数
+        function resolve(value){
+            setTimeout(() => {
+                if(self.status === 'pending'){
+                    self.status = 'resolved'
+                    self.value = value;
+                    self.resCallback.forEach(item=>{
+                        item && item(self.value)
+                    })
+                }
+            });
+        }
+        function reject(reason){
+            setTimeout(() => {
+                if(self.status === 'pending'){
+                    self.status = 'rejected'
+                    self.reason = reason;
+                    self.rejCallback.forEach(item=>{
+                        item&&item(self.reason);
+                    })
+                }   
+            });
+        }
+        try {
+            exector(resolve,reject)
+        } catch (error) {
+            reject(error)
+        } 
+    }
+    MyPromise.prototype.then = function(res,rej){
+        let self = this;
+        return new MyPromise(function(res2,rej2){
+            if(self.status === 'resolved'){
+                // 第二个then的回调函数参数是由第一个then的回调函数的执行结果赋予的
+                try {
+                    let value = res(self.value);
+                    res2(value)
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if(self.status === 'rejected'){
+                try {
+                    let reason = rej(self.reason);
+                    // 上一个失败回调 执行没出现错误
+                    // 就需要让下一个then的成功回调函数执行
+                    res2(reason)
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if(self.status === 'pending'){
+                // self.resCallback.push(res);
+                // self.rejCallback.push(rej);
+                self.resCallback.push(function(value){
+                    try {
+                        let val = res(value);
+                        res2(val);
+                    } catch (error) {
+                        rej2(error)
+                    }
+                })
+                self.rejCallback.push(function(reason){
+                    try {
+                        let val = rej(reason);
+                        res2(val);
+                    } catch (error) {
+                        rej2(error)
+                    }
+                })
+            }
+        })
+    }
+    MyPromise.all = function(ary){
+        // ary 中都是MyPromise实例
+        return new MyPromise(function(res,rej){
+            let done = gen(ary.length,res);
+            ary.forEach((item,index)=>{
+                item.then((data)=>{
+                    done(index,data)
+                },rej)
+            })
+        })
+    }
+    function gen(length,res){
+        let values = [];
+        let count = 0;
+        return function(index,value){
+            values[index] = value;
+            if(++count == length){
+                res(values)
+            }
+        }
+    }
+    let myp1 = new MyPromise((res,rej)=>{
+        setTimeout(() => {
+            rej(666)
+        }, 2000);
+    })
+    let myp2 = new MyPromise((res,rej)=>{
+        setTimeout(() => {
+            res(999)
+        }, 4000);
+    })
+    MyPromise.all([myp1,myp2]).then((data)=>{
+        console.log(data)
+    },(err)=>{
+        console.log(err)
+    })
+
+    /* let myp = new MyPromise(function(resolve,reject){
+        console.log('fn')
+        console.log(qqq)
+        // setTimeout(() => {
+        //     resolve(666)
+        // }, 3000);
+    }).then((data)=>{
+        console.log('mydata',data)
+    },(err)=>{
+        console.log('myerr',err)
+        return 666
+    }).then((data)=>{
+        console.log('then2data',data)
+        console.log(aaa);
+    },(err)=>{
+        console.log('then2err',err)
+    }).then((data)=>{
+        console.log('then3data',data)
+    },(err)=>{
+        console.log('then3err',err)
+    })
+    console.log(123456); */
+    
+
+    // 安装node
+</script>
