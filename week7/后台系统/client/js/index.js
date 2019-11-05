@@ -105,10 +105,10 @@ $(function () {
                             客户管理
                         </h3>
                         <nav class="item">
-                            <a href="./page/customerlist.html" target='iframeBox'>我的客户</a>
+                            <a href="./page/customerlist.html#my" target='iframeBox'>我的客户</a>
                             ${
                                 power.indexOf('allcustomer') != -1 ?
-                                `<a href="./page/customerlist.html" target='iframeBox'>全部客户</a>`:''
+                                `<a href="./page/customerlist.html#all" target='iframeBox'>全部客户</a>`:''
                             }
                             ${
                                 power.indexOf('departcustomer') != -1 ?
@@ -129,15 +129,35 @@ $(function () {
         if(location.hash == '#customer'){
             // 当前要展示客户管理
             $tar.show().siblings('.itemBox').hide();
-            let url = $tar.find('a').eq(0).attr('href');
-            $iframe.attr('src',url);
+            let currentUrl = sessionStorage.getItem('currentUrl');
+            if(currentUrl){
+                $iframe.attr('src',currentUrl);// 跳转到当前操作列表
+            }else{
+                let url = $tar.find('a').eq(0).attr('href');
+                $iframe.attr('src',url);
+            }
         }else{
             $tar.hide().siblings('.itemBox').show()
             $as = $menuBox.find('a');// 渲染完成之后再去更新变量
-            let url = $as.eq(0).attr('href')
-            $iframe.attr('src',url);// 跳转到第一个url
+            let currentUrl = sessionStorage.getItem('currentUrl');
+            if(currentUrl){
+                $iframe.attr('src',currentUrl);// 跳转到当前操作列表
+            }else{
+                let url = $as.eq(0).attr('href')
+                $iframe.attr('src',url);// 跳转到第一个url
+            }
         }
     }
     hash();
-    window.addEventListener('hashchange',hash)
+    window.addEventListener('hashchange',hash);
+
+    // 实现导航栏的折叠效果
+    function foldFn(){
+        let $h3s = $('.itemBox h3');
+        $h3s.on('click',function(){
+            $(this).siblings('.item').slideToggle('fast')
+        })
+    }
+    foldFn();
+    
 })

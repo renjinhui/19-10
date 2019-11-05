@@ -187,7 +187,7 @@ route.post('/update', (req, res) => {
 });
 
 //=>删除用户信息
-route.get('/delete', (req, res) => {
+function del(req, res) {
 	let $userDATA = req.$userDATA,
 		flag = false;
 	let {
@@ -212,6 +212,10 @@ route.get('/delete', (req, res) => {
 	}).catch(() => {
 		res.send(success(false));
 	});
+}
+let ary = []
+route.get('/de;lete', (req, res) => {
+	del(req, res)
 });
 
 //=>修改（重置）用户密码
