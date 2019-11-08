@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // http  三握四挥； https 和 http 
+    // ajax  timeout  abort   ontimeout  onabort
+    //       readyState: 0 - 4;  status http状态码：  强制缓存 协商缓存
+    // axios  get post  拦截器   ‘content-type’; 
+    // fetch  fetch(url,{}).then(()=>{},()=>{}).then()
+
+    // fetch('./data.json').then((data)=>{
+    //     // console.log(data.json())
+    //     return data.json()
+    // }).then(data=>{
+    //     console.log(data)
+    // });
+
+    // localStorage  cookie
+
+    // PromiseA+
+
+    // webSocket  socket.io  onopen  onmessage  onerror  onclose :  send   close
+
+    // 跨域： jsonp:script 的src不存在 跨域；同源策略
+    //        cors   
+    //        postMessage
+    function qqq(data){
+        console.log(data)
+    }
+
+    function f(s){
+        let reg = /\d+\[[^\[\]]+?\]/g;
+        let ary = s.match(reg);
+        let res = '';
+        if(ary){
+            s = s.replace(reg,function(item){
+                let arr = item.match(/(\d+)\[(\w+)\]/);
+                let t = '';
+                for(let i = 0; i < arr[1]; i++){
+                    t+=arr[2]
+                }
+                return t;
+            })
+            s = f(s);
+        }
+        return s;
+    }
+    f('3[abc2[qas]4[w]]');
+
+</script>
+<script src="https://nex.163.com/q?app=7BE0FC82&c=homepage&l=13&site=netease&affiliate=homepage&cat=homepage&type=column1200x125_960100&location=2&cb=qqq"></script>

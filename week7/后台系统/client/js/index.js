@@ -129,7 +129,7 @@ $(function () {
         if(location.hash == '#customer'){
             // 当前要展示客户管理
             $tar.show().siblings('.itemBox').hide();
-            let currentUrl = sessionStorage.getItem('currentUrl');
+            let currentUrl = sessionStorage.getItem('customerUrl');
             if(currentUrl){
                 $iframe.attr('src',currentUrl);// 跳转到当前操作列表
             }else{
