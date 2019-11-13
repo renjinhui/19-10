@@ -214,7 +214,7 @@ function del(req, res) {
 	});
 }
 let ary = []
-route.get('/de;lete', (req, res) => {
+route.get('/delete', (req, res) => {
 	del(req, res)
 });
 
