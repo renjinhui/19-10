@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <el-radio v-model="radio" label="1">苹果</el-radio>
+        <el-radio v-model="radio" disabled  label="2">香蕉</el-radio>
+
+        <el-radio-group v-model="radio1">
+            <el-radio-button label="上海"></el-radio-button>
+            <el-radio-button label="北京"></el-radio-button>
+            <el-radio-button label="广州"></el-radio-button>
+            <el-radio-button label="深圳"></el-radio-button>
+        </el-radio-group>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            radio:'1',
+            radio1:'上海'
+        }
+    });
+</script>
