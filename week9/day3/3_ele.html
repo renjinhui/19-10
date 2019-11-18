@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        select {
+            width: 200px;
+            height: 50px;
+            font-size: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <el-input v-model="username" style="width:300px" placeholder="请输入用户名"></el-input>
+        <h2></h2>
+        <div>
+            <!-- <input type="radio" v-model='sex' value=0>男
+            <input type="radio" v-model='sex' value=1>女 -->
+            <el-radio v-model="sex" label="0">男</el-radio>
+            <el-radio v-model="sex" label="1">女</el-radio>
+        </div>
+
+        <h2>选择课程</h2>
+        <div>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="checkAllFn">全选
+            </el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="course" @change="checkOneFn">
+                <el-checkbox v-for="item in courseAry" :label="item.val" :key="item.val">{{item.text}}</el-checkbox>
+            </el-checkbox-group>
+        </div>
+
+        <h2>爱好</h2>
+        <div>
+            <el-select v-model="hobby" placeholder="请选择">
+                <el-option
+                    v-for="item in ary"
+                    :key="item.value"
+                    :label="item.text"
+                    :value="item.val">
+                </el-option>
+            </el-select>
+        </div>
+
+        <div>
+            <h1>手机号</h1>
+            <el-input v-model="phone" style="width:300px" placeholder="请输入手机号" type='tel'></el-input>
+        </div>
+
+        <el-button :plain="true" type="primary" @click='submit'>提交</el-button>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/element-ui/lib/index.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰",
+            checkAll:false,
+            ary: [{
+                val: 'eat',
+                text: '吃'
+            }, {
+                val: 'play',
+                text: '玩'
+            }, {
+                val: 'sleep',
+                text: '睡'
+            }, {
+                val: 'study',
+                text: '学习'
+            }],
+            username: '',
+            course: [],
+            courseAry:[{val:'html',text:'html'},{val:'css',text:'css'},{val:'js',text:'js'}],
+            isIndeterminate: false,
+            sex: '0',
+            hobby: '',
+            phone: ''
+        },
+        methods: {
+            checkAllFn(val){
+                console.log(val)
+                this.course = val ? this.courseAry.map(item=>item.val) : [];
+                this.isIndeterminate = false;
+            },
+            checkOneFn(ary){
+                // 既有被选中的 也有不被选中的 这时， 那按钮才是横杠状态
+                // console.log(ary,this.course)
+                if(ary.length!=0 && ary.length != this.courseAry.length){
+                    this.isIndeterminate = true;
+                }else{
+                    // 要不就是全选  要不就是都没选
+                    this.isIndeterminate = false;
+                    this.checkAll = ary.length==0 ? false : true;
+                }
+            },
+            submit() {
+                let obj = {};
+                if (!this.username || !this.phone) {
+                    this.$message({
+                        message: '必填项不能为空',
+                        type: 'warning',
+                        duration:1000
+                    });
+                    return;
+                }
+                obj.username = this.username;
+                obj.course = this.course;
+                obj.sex = this.sex;
+                obj.hobby = this.hobby;
+                obj.phone = this.phone;
+                fetch('http://127.0.0.1:8080/add/userinfo', {
+                    method: 'post',
+                    body: JSON.stringify(obj)
+                }).then(response => response.json()).then((data) => {
+                    console.log(data)
+                    if (data.code == 0) {
+                        this.$message({
+                            message: '恭喜你，提交成功',
+                            type: 'success',
+                            duration:1000
+                        });
+                    }
+                })
+            }
+        },
+    });
+</script>

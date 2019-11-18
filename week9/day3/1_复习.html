@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <button @click='fn'>1</button>
+        <button @click='fn()'>2</button>
+        <button @click='fn(111,222,name,$event)'>3</button>
+        {{obj}}
+        <ul>
+            <li v-for="(item,index) in 5" :key='item'>
+                {{item}}--{{index}}
+            </li>
+        </ul>
+        <span v-show='false'>{{t}}</span>
+
+        <input type="text" v-model.lazy='name'>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+        v-model  v-text  v-html
+        v-cloak  v-once  v-pre
+        v-show   v-if    v-for
+        v-bind :
+        v-on   @
+
+        .stop  .prevent .once .self  .capture  .passive
+        .enter .13
+
+        v-model的三个修饰符  .trim .number  .lazy
+     */
+    let vm = new Vue({
+        el:'#app',
+        // template
+        data:{
+            name:"珠峰",
+            obj:{
+                a:12
+            },
+            t:0
+        },
+        methods: {
+            fn(e){
+                this.myalert();// this都是当前实例
+            },
+            myalert(){
+                // alert(666)
+                this.obj.b = 100;
+                // this.$set(this.obj,'b',100)
+                this.t = Math.random()
+                console.log(this.obj)
+            }
+        },
+    });
+</script>

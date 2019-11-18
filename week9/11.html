@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table class='table table-bordered table-striped'>
+            <thead>
+                <tr>
+                    <th>全选<input type="checkbox" v-model='all' @change='checkAll'></th>
+                    <th>商品</th>
+                    <th></th>
+                    <th></th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody v-cloak>
+                <tr v-for='(item,index) in ary' :key='index'>
+                    <td>
+                        <input type="checkbox" v-model='item.isSelect' @change='checkone'>
+                    </td>
+                    <td>
+                        <!-- 展示图片  行内属性 使用 v-bind -->
+                        <img :src="item.pic" alt="">
+                    </td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.desc}}</td><!-- 介绍  desc -->
+                    <td>{{item.price|money}}</td> <!-- 单价  price -->
+                    <td><input type="text" v-model='item.count' min=1 @input='changeCount(item,$event)'></td> <!-- 数量 count-->
+                    <td>{{(item.count * item.price)|money}}</td> <!-- 小计 -->
+                    <td>
+                        <button type="button" class="btn btn-danger" @click='del(index)'>删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- 和并列  把 八列合成了一列 -->
+                    <td colspan='8'>
+                        <button type="button" class="btn btn-danger" @click='clear'>清空购物车</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='8'>
+                        总价：{{total|money}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="./index.js"></script>
+</html>

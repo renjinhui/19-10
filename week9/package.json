@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "element-ui": "^2.4.8",
     "vue": "^2.6.10"
   },
   "devDependencies": {},
