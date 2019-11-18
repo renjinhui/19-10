@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1 :class="qqq">{{name}}</h1>
+        <h2 :class="{qwer:flag,aaa:flag,bbb:!flag}">{{name}}</h2>
+        <!--        属性名是要添加的类名  属性值 是管理这个属性名加不加的问题；true就加上 -->
+
+        <h2 :class="ary">{{name}}</h2>
+
+        <div style='background:#333'>{{name}}</div>
+        
+        <div :style='obj'>{{name}}</div>
+
+        <div :style='[obj,{color:"#ccc","font-weight":800}]'>{{name}}</div>
+
+        <button @click='fn'>切换</button>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            qqq:'a',
+            flag:true,
+            ary:['q','w','e','r'],
+            obj:{
+                color:'#fff',
+                'font-size':'30px',
+                backgroundColor:'#333'
+            }
+        },
+        methods: {
+            fn(){
+                this.flag = !this.flag;
+                this.qqq = this.qqq == 'a' ? 'b' : 'a';
+                this.ary.pop();
+            }
+        },
+    });
+</script>

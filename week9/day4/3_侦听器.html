@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='name'>
+        <h1>{{name}}</h1>
+        <div v-show='name.length >= 5'>名字太长</div>
+        <div>msg{{msg}}</div>
+        <h2>{{watchMsg}}</h2>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            timer:null,
+            watchMsg:''
+        },
+        // methods computed  data 中的属性名不能重复
+        computed: {
+            msg(){
+                // 计算属性不能监听到异步调用
+                // clearTimeout(this.timer);
+                // this.timer = setTimeout(() => {
+                //     console.log(this.name)
+                // }, 500);
+                // console.log(555555)
+                // return this.name.length >= 5 ? '名字太长' : '';
+            },
+        },
+        watch: {
+            // 属性都是已存在的data或者computed中的属性；
+            // computed中的属性都是新增的；
+            name(newValue, oldValue) {
+                console.log(newValue,oldValue);
+                // this.name = 666
+                // this.name = Math.random();
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    this.watchMsg = this.name.length >=5 ? '名字太长' :'';
+                }, 300);
+            }
+        },
+    });
+</script>

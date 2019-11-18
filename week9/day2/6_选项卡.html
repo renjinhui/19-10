@@ -19,6 +19,9 @@
             border: 1px solid salmon;
             text-align: center;
         }
+        header span.current{
+            background: salmon;
+        }
 
         main div {
             width: 400px;
@@ -35,7 +38,9 @@
     <div id="app">
         <h1>{{name}}</h1>
         <header>
-            <span v-for='(item,index) in ary' @click='change(index)'>{{item}}</span>
+            <span v-for='(item,index) in ary' @click='change(index)' :class='{current:qqq==index}'>
+                {{item}}
+            </span>
         </header>
         <main>
             <div>

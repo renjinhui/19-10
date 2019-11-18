@@ -36,7 +36,7 @@
             <table class='table table-bordered'>
                 <thead>
                     <tr class="bg-primary">
-                        <th>全选 <input type="checkbox" v-model='checkAll' @change="checkAllFn" /></th>
+                        <th>全选 <input type="checkbox" v-model='checkAll' /></th>
                         <th>商品名称</th>
                         <th>图片</th>
                         <th>描述</th>
@@ -48,12 +48,12 @@
                 </thead>
                 <tbody>
                     <tr v-for='(item,index) in datalist' :key='item.id'>
-                        <td><input type="checkbox" v-model='item.isSelect' @change='checkOneFn(item)'/></td>
+                        <td><input type="checkbox" v-model='item.isSelect'/></td>
                         <td>{{item.title}}</td>
                         <td><img :src="item.pic" alt=""></td>
                         <td>{{item.desc}}</td>
                         <td>{{item.price|money}}</td>
-                        <td><input type="number" min=0 v-model='item.count' @input='sum'></td>
+                        <td><input type="number" min=0 v-model='item.count' ></td>
                         <td>{{item.price*item.count|money}}</td>
                         <td><button type="button" class="btn btn-danger" @click='del(index)'>删除</button></td>
                     </tr>
@@ -92,4 +92,4 @@
 </body>
 </html>
 <script src="../node_modules/vue/dist/vue.js"></script>
-<script src='./jd.js'></script>
+<script src='./jd2.js'></script>

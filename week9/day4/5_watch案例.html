@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        请输入问题：<input type="text" v-model='question'>
+
+        <h2>答案是：{{answer}}</h2>
+        <img :src="url" alt="">
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/loadsh/lodash.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            question:'',
+            answer:'',
+            timer:null,
+            url:''
+        },
+        created() {
+            this.getAnswerFn = _.debounce(this.getAnswer,300)
+        },
+        methods: {
+            getAnswer(){
+                if(!/(\?|\？)$/.test(this.question)){
+                    this.answer = '您的问题不合法'
+                    return 
+                }
+                if(!this.question)return;
+                this.answer = '正在思考'
+                axios.get('https://yesno.wtf/api').then(data=>{
+                    console.log(data)
+                    this.answer = data.data.answer;
+                    this.url = data.data.image
+                })
+            }
+        },
+        watch: {
+            question(newV,oldV){
+                this.answer = '正在输入'
+                this.getAnswerFn();//getAnswerFn 是用debounce处理后的函数
+                // clearTimeout(this.timer);
+                // this.timer = setTimeout(() => {
+                //     console.log(666)
+                //     axios.get('https://yesno.wtf/api').then(data=>{
+                //         console.log(data)
+                //     })
+                // }, 300);
+            }
+        },
+    });
+</script>

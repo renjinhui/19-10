@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='name'>
+        <h1>{{name}}</h1>
+        <h2>{{name.split('').reverse().join('')}}</h2>
+
+        <h2>{{name|reverse}}</h2>
+
+        <h2>{{reverse(name)}}</h2>
+
+        <h2>reverseName {{reverseName}}</h2>
+
+        {{t}}
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    let vm = new Vue({
+        /* 
+            el,data,template,methods,filters,created
+        */
+        el:'#app',
+        // template:"<div>hello</div>",
+        data:{
+            name:"珠峰",
+            t:0
+        },
+        methods: {
+            fn(){
+                // this 是vm 
+            },
+            reverse(val){
+                console.log(666)
+                return val.split('').reverse().join('')
+            }
+        },
+        filters:{
+            // 管道符 | 
+            fn(val,n,m,x){
+                // this 不是当前实例
+            },
+            reverse(val){
+                return val.split('').reverse().join('')
+            }
+        },
+        created() {
+            // 一进来就执行
+        },
+        computed: {
+            // 计算属性
+            // 计算属性对应的值 会被挂载到当前实例上， 挂载的内容是函数的返回值
+            reverseName(){
+                // reverseName  代表的就是 name的反转
+                // 计算属性 会有一个对应的缓存。当计算属性依赖的值不发生改变，
+                //    那么视图刷新时 他就会使用上一次计算出来的结果进行展示，不会再执行函数
+                // 依赖 就是在函数中用到了哪个变量， 就是依赖哪个变量
+                // console.log('computed')
+                // console.log(this.name,this.t)
+                return this.name.split('').reverse().join('')
+            },
+            reverseName2:{
+                get(){
+                    return this.name.split('').join("+")
+                },
+                set(val){
+                    console.log(val);
+                    // 具体的业务逻辑
+                    this.t = val
+                }
+            }
+        },
+    });
+</script>
