@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        span{
+            display: inline-block;
+            /* width: 20px; */
+            text-align: center;
+            font-size: 30px;
+            margin: 5px;
+            background: salmon;
+        }
+        .my-enter-active,.my-leave-active{
+            transition: all 0.5s;
+        }
+        .my-enter,.my-leave-to{
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .my-move,.qqq{
+            transition: all 0.5s;
+        }
+        .my-leave-active {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <transition-group tag='div' name='my'>
+            <span v-for='item in ary' :key='item' class='qqq'>{{item}}</span>
+        </transition-group>
+        <button @click='add'>添加</button>
+        <button @click='del'>删除</button>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[1,2,3,4,5,6,7]
+        },
+        methods: {
+            add(){
+                var n = Math.round(Math.random()*100+3);
+                while(this.ary.includes(n)){
+                    n = Math.round(Math.random()*100+3)
+                }
+                var index = Math.round(Math.random()*(this.ary.length-1));
+                this.ary.splice(index,0,n)
+            },
+            del(){
+                var index = Math.round(Math.random()*(this.ary.length-1));
+                this.ary.splice(index,1)
+            }
+        },
+    });
+</script>

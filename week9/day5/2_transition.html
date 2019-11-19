@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1 {
+            width: 200px;
+        }
+
+        h2,h3 {
+            width: 600px;
+            background: #ccc;
+            text-align: center;
+            margin: auto
+        }
+
+        .v-enter {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        .v-enter-active {
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .v-enter-to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .v-leave {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .v-leave-active {
+            transition: all 0.5s;
+        }
+
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        .qqq-enter {
+            opacity: 0;
+            transform: scale(0.2);
+        }
+
+        .qqq-enter-active {
+            transition: all 0.5s;
+        }
+
+        .qqq-enter-to {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .myanimation-enter-active {
+            animation: move 1s;
+        }
+
+        .myanimation-leave-active {
+            /* reverse 动画相反   100% --> 0% */
+            animation: move 1s reverse;
+        }
+
+        @keyframes move {
+            0% {
+                opacity: 0;
+                transform: scale(0.2)
+            }
+
+            50% {
+                transform: scale(2)
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="app">
+        <button @click='fn'>按钮</button>
+        <transition>
+            <!-- 这里边只能写一个根元素 -->
+            <!-- <h1 v-show='flag'>{{name}}</h1> -->
+        </transition>
+        <div></div>
+        <transition name='qqq'>
+            <!-- 这里边只能写一个根元素 -->
+            <!-- <h2 v-show='flag'>{{name}}</h2> -->
+        </transition>
+
+        <!-- 帧动画 -->
+        <transition name='myanimation'>
+            <!-- <h2 v-if='flag'>
+                {{name}} {{name}}
+            </h2> -->
+        </transition>
+
+        <!-- 结合animate.css使用 -->
+        <transition 
+            name='my'
+            enter-active-class='animated rubberBand'
+            leave-active-class='animated bounceOut'
+        >
+            <!-- <h3 v-if='flag'>
+                {{name}} {{name}}
+            </h3> -->
+        </transition>
+
+        <transition
+            name='my'
+            enter-active-class='animated bounceIn'
+            leave-active-class='animated bounceOut'
+            mode='out-in'
+        >   
+            <!-- mode='out-in' 是控制 先消失 再显示 -->
+            <h2 v-if='flag'>{{name}}</h2>
+            <h3 v-else>{{name}}{{name}}</h3>
+        </transition>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰",
+            flag: true
+        },
+        methods: {
+            fn() {
+                this.flag = !this.flag;
+            }
+        },
+    });
+</script>

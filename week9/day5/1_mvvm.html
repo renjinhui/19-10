@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{name}}   {{age}}   {{name}}
+        <h1>{{age}}</h1>
+        <input type="text" v-model = 'name'>
+        
+        <input type="text" v-model = 'age'>
+
+        <h2>{{name}} {{name}}</h2>
+        <div>
+            <div>
+                {{name}}
+            </div>
+            <h2>
+                {{age}}
+            </h2>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // 第一步  把页面中的vue语法转成正常的数据
+    //         先把模板获取到
+    function nodeToFragment($el,vm){ // vm是当前实例
+        let fragment = document.createDocumentFragment();// 创造一个文档碎片，用来存储页面中的节点
+        let child;
+        while(child = $el.firstChild){
+            // console.log(child)
+            compile(child,vm)
+            fragment.appendChild(child);//把child从#app中转移到了 文档碎片中；
+        }
+        // 通过while循环 我们把 要编译的模板转移到了 文档碎片上， 页面上成为空白
+        //  下一步 我们要编译模板。 然后把编译好的模板在放到页面上；
+        // compile(fragment,vm)// 编译模板的一个函数
+        $el.appendChild(fragment)
+    }
+
+    function compile(node,vm) {
+        // 这里需要我们判断 node节点是 文本节点 还是  元素节点
+        if(node.nodeType==1){
+            //说明是元素节点
+            let attrs = node.attributes;// 获取node的所有行内属性
+            // console.log(attrs);
+            [...attrs].forEach(item=>{
+                // console.log(item.nodeValue)
+                if(/v\-/.test(item.nodeName)){
+                    let valN = item.nodeValue;// 指令对应的vue变量名； name age
+                    // console.log(valN,vm.$data);
+                    let val = vm.$data[valN] // vue变量对应的值； 珠峰   10
+                    // 要把 val 设置成对应元素的值
+                    // node就是我们对应的 元素
+                    // console.log(node)
+                    node.addEventListener('input',(e)=>{
+                        vm.$data[valN] = e.target.value;
+                    },false);
+                    new Watcher(node,vm,valN)
+                    node.value = val; // 把元素的value设置成 对应的 val;
+                }
+            });
+            // 对该节点 继续执行编译  编译该节点的子节点
+            // console.dir(node);
+            [...node.childNodes].forEach(item=>{
+                // console.log(item)
+                compile(item,vm)
+            })
+            // compile(node,vm)
+        }else{
+            // 文本节点
+            // 我们要去查找小胡子语法 把小胡子语法对应的变量换成对应的值 {{name}}
+            // console.log(node.textContent)// 可以获取到对应的文本字符串
+            let str = node.textContent;
+            node.str = str; // str是带着小胡子的编译之前的哪个值
+            if(/\{\{(\w+)\}\}/.test(str)){
+                str = str.replace(/\{\{(.+?)\}\}/g,($0,$1)=>{
+                    // console.log($1)
+                    // 只要使用了对应的数据  我们就增加一个监听者
+                    new Watcher(node,vm,$1);
+                    return vm.$data[$1]
+                })
+                // console.log(str);
+                node.textContent = str;
+            }
+
+        }
+    }
+
+    function observe(obj){
+        // 执行数据劫持
+        let keys = Object.keys(obj);// 获取obj中所有的属性名；
+        keys.forEach(key=>{
+            // 执行真正的数据劫持
+            defineReactive(obj,key,obj[key]);
+        })
+    }
+    function defineReactive(obj,key,value){
+        let dep = new Dep();
+        // 针对每一个属性各自创造了一个事件池； name对应一个事件池， 
+        // name事件池中存放的都是用到name的哪些节点的更新操作
+        Object.defineProperty(obj,key,{
+            get(){
+                console.log(`${key}被使用了`)
+                if(Dep.target){
+                    // 存储的是 更新对应DOM的操作
+                    dep.addSub(Dep.target)
+                }
+                return value
+            },
+            set(newValue){
+                console.log('----',dep)
+                if(newValue == value)return;// 若两次数据没改变， 就不需要更新DOM
+                console.log(`${key}被设置了`)
+                value = newValue
+                dep.notifty();
+            }
+        })
+    }
+
+    class Dep{// 订阅器
+        constructor(){
+            this.subs = [];
+        }
+        addSub(sub){
+            this.subs.push(sub)
+        }
+        notifty(){
+            this.subs.forEach(item=>{
+
+                item.update();
+            })
+        }
+    }
+
+    class Watcher{
+        // 订阅者
+        constructor(node,vm,key){
+            Dep.target = this;
+            this.node = node;
+            this.vm = vm;
+            this.key = key;
+            this.update();
+            Dep.target = null;
+        }
+        update(){
+            this.get();// this.value 存储的就是 更改后的数据的新值
+            let str = this.node.str;
+            if(str){
+                str = str.replace(/\{\{(.+?)\}\}/g,($0,$1)=>{
+                    if($1 == this.key){
+                        return this.value
+                    }
+                    return this.vm.$data[$1]
+                })
+                // 把更新完成的 str 重新放回页面
+                this.node.textContent = str;
+            }else{
+                // 证明是 input
+                this.node.value = this.value;
+            }
+            
+        }
+        get(){
+            this.value = this.vm.$data[this.key]
+        }
+    }
+    
+    function Vue(options) {
+        // $el就是我们要操作的元素
+        this.$el = document.querySelector(options.el)
+
+        //$data中存储的是 对应的vue变量
+        this.$data = options.data || {};
+        observe(this.$data); //对数据进行劫持
+        nodeToFragment(this.$el,this);// 为了把页面中的节点转移到文档碎片上
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:'珠峰',
+            age:10
+        }
+    });
+</script>
