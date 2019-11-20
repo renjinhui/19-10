@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+        v-model  v-text   v-html  v-cloak  v-pre  v-once
+        v-for  v-if  v-show   v-on(@) $event    v-bind(:) class  style    
+
+        事件修饰符 .stop .prevent  .capture .passive  .self .once
+        按键修饰符  .enter  
+        系统修饰符  .ctrl  .shift
+        v-model的修饰符  .lazy  .number .trim
+        
+        自定义指令  Vue.directive(指令名，function(el,obj))
+                    directives:{指令名1(el,obj){},指令名2(){}}
+        过滤器      Vue.filter(过滤器名,function(val,传递的其他参数){val就是管道符前边的值})
+                     filters:            
+        
+        <template></template>
+        <transition>只能有一个根元素</transition> 
+            xxx-enter  xxx-enter-active xxx-enter-to
+            xxx-leave  xxx-leave-active xxx-leave-to
+            
+            跟第三方动画库结合使用
+            enter-active-class
+            leave-active-class
+
+            @before-enter='fn'  @enter='fn'  @after-enter='fn'
+
+        <transition-group tag='div'></transition-group>
+        
+        el  data  template  methods  computed  watch   filters  directives  created
+
+        // 钩子： 自定义指令的钩子  
+                    Vue.directive('qqq',{
+                        bind(){}
+                        insert(){}
+                    })
+                     bind  insert  update  componentUpdate unbind
+
+                  transition的钩子  @before-enter = 'fn'
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>

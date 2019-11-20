@@ -103,10 +103,10 @@
         TODO-LIST
     </nav>
     <div class="content">
-        <h2>亲~ 你还有10件事要完成</h2>
+        <h2>亲~ 你还有{{count}}件事要完成</h2>
         <input type="text" class="inp" v-model='todo' @keyup.enter='submit'>
         <ul class="todo_list">
-            <li v-for='(item,index) in ary' 
+            <li v-for='(item,index) in todoAry' 
                 @dblclick.prevent='change(item)'
                 :key='item.id'>
                 <span :class="{text_del:item.done}" v-if='!item.editable'>
@@ -118,7 +118,7 @@
                     v-model='item.todo' 
                     @blur='change(item)'
                     v-else>
-                <button @click.stop='del(index)'>删除</button>
+                <button @click.stop='del(item)'>删除</button>
             </li>
         </ul>
         <ul class="hash_tab">

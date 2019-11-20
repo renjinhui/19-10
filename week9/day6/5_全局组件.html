@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <qqq></qqq>
+        <!-- 
+            组件的使用 可以单标签；但是单标签下边的组件 就不再渲染；
+            所以使用的时候 尽量使用闭合标签；
+
+            组件的命名 可以是烤串命名方式，这种方式 在vue中很安全，
+                也可以是 驼峰式命名， 但是 在使用的时候 需要转成烤串使用
+         -->
+        <!-- <el-qqq/> -->
+        <qqq></qqq>
+        <!-- <el-qqq/> -->
+        <!-- <www></www> -->
+        <!-- <myComponent></myComponent> -->
+        <my-component></my-component>
+    </div>
+    <div id="app2">
+        <qqq></qqq>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // Vue.filter(name,cb)   Vue.directive(name,cb)
+    Vue.component('qqq',{
+        template:'<div>这是一个全局组件</div>'
+    })
+    Vue.component('el-qqq',{
+        template:`<h2>这是另一个全局组件</h2>`
+    })
+    Vue.component("myComponent",{
+        template:"<h1>驼峰式命名的组件</h1>"
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    });
+    let vm2 = new Vue({
+        el:'#app2'
+    });
+</script>

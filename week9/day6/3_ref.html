@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1 ref='qqq'>{{name}}</h1>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 ref='qqq'>{{name}}</h2>
+---------------------------------------------
+        <h2 v-for='i in ary' ref='www'>{{name}}</h2>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[1,2,3,4]
+        },
+        created() {
+            console.log(this)
+        },
+        mounted() {
+            // ref获取元素 在多个元素的时候 只能获取一个
+            // 若是通过 v-for循环出来的 就都可以获取到
+            // DOM的更新是一个异步操作
+            this.ary.pop()
+            console.log(this.$refs.www.length);
+            this.$nextTick((...arg)=>{
+                // 这个回调函数会在DOM更新完成之后触发
+                console.log(arg)
+                console.log(this.$refs.www.length);
+            })
+
+            this.ary.pop()
+            this.$nextTick((...arg)=>{
+                // 这个回调函数会在DOM更新完成之后触发
+                console.log(arg)
+                console.log(this.$refs.www.length);
+            })
+        },
+    });
+    /* 
+    
+    ssadad
+     */
+</script>
