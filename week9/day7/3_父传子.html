@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <father></father>
+
+        <my-inp 
+            placeholder='请输入内容'
+        ></my-inp>
+    </div>
+</body>
+
+<template id='father'>
+    <div  @click.stop='facount++'>
+        这是一个父组件{{facount}}
+        <div>------------------</div>
+        <son :qqq='facount'></son>
+    </div>
+</template>
+
+<template id='son'>
+    <div @click.stop='fn'>
+        这是一个子组件{{$parent.facount}}
+        <h2>接收父组件的 {{qqq}}</h2>
+    </div>
+</template>
+
+<template id='inp'>
+    <div>
+        <h2>这是我自己的input组件</h2>
+        <input type="text" :placeholder="placeholder">
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 父传子  就是在子组件使用的标签上 添加行内属性
+    //        自组件中 通过props属性接收传进来的值；
+    //        这个props对应的属性的属性值只能看 不能改；
+    Vue.component('father',{
+        template:'#father',
+        data() {
+            return {
+                facount:100
+            }
+        },
+    })
+    Vue.component('son',{
+        template:'#son',
+        props:['qqq'],
+        data() {
+            return {
+                
+            }
+        },  
+        methods: {
+            fn(){
+                //this.$parent 可以获取整个父组件，
+                //那么整个父组件中的属性或者方法 我们可以随意调用
+                // this.$parent.facount+=10
+                console.log(this.qqq)
+                // 从父组件接手过来的数据 我们不能直接修改
+                // 因为这么修改 有被重写的风险
+                // 每当父组件更新一下， 传进来的数据就会被重写
+                this.qqq = 1000;
+            }
+        }, 
+    })
+    Vue.component('my-inp',{
+        template:"#inp",
+        props:['placeholder']
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        
+    });
+</script>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .tabBox{
+            display: flex;
+            width: 600px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            list-style: none;
+            background: #ccc;
+        }
+        .tabBox li{
+            flex:1;
+            border: 1px solid salmon;
+            max-width: 80px;
+        }
+        .tabBox li.current{
+            background: salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-tab :data='ary' @change='fn' @tab-remove='tabRm'></my-tab>
+    </div>
+</body>
+</html>
+
+<template id='tab'>
+    <ul class='tabBox'>
+        <li v-for='(item,index) in data' :class='{current:index === qqq}' @click='tabFn(index,item)'>
+            <pre>{{item}}   <span @click.stop='delFn(index)'>X</span></pre>
+        </li>
+    </ul>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-tab',{
+        template:'#tab',
+        props:['data'],
+        data() {
+            return {
+                qqq:0
+            }
+        },
+        methods: {
+            tabFn(n,str){
+                this.qqq = n;
+                this.$emit('change',n,str)
+            },
+            delFn(n){
+                // this.data = [];
+                // this.data.splice(n,1)// 再子组件直接修改父组件的数据
+                this.$emit('tab-remove',n)
+            }
+        },
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:['css','html','js','vue','node']
+        },
+        methods: {
+            fn(n,item){
+                console.log(n,item);
+            },
+            tabRm(n){
+                this.ary.splice(n,1);
+            }
+        },
+    });
+</script>

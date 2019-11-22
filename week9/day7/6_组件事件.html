@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <!-- 只要组件上的事件 不管长成什么样  都是自定义事件 -->
+        <my-btn @click='fn' :class='["qqq","www"]' icon=></my-btn>
+    </div>
+</body>
+</html>
+
+<template id='btn'>
+    <button @click='clickFn' class='aaa' >按钮</button>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    
+    let obj = {
+        template:'#btn',
+        methods: {
+            clickFn(e){
+                this.$emit('click',e);
+                console.log(this)
+            }
+        },
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        components:{
+            'my-btn':obj
+        },
+        methods: {
+            fn(){
+                console.log(arguments)
+            }
+        },
+    });
+    // 所有的vue组件都有一个$root属性  指向当前项目的根组件
+</script>

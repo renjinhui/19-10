@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <father></father>
+    </div>
+</body>
+
+<template id='father'>
+    <div  @click.stop='facount++'>
+        这是一个父组件{{facount}}
+        <div>------------------</div>
+        <son></son>
+    </div>
+</template>
+
+<template id='son'>
+    <div @click.stop='soncount++'>
+        这是一个子组件{{soncount}}
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // Vue组件的渲染过程： 初次 created是从外到里的执行顺序
+    // mounted是从里到外的执行顺序； 更新操作是只更新对应的模板；
+    Vue.component('father',{
+        template:'#father',
+        data() {
+            return {
+                facount:100
+            }
+        },
+        created() {
+            console.log('父组件创建完成')
+        },
+        mounted(){
+            console.log('父组件DOM渲染完成')
+        },
+        updated() {
+            console.log('父组件更新DOM渲染完成')
+        },
+    })
+    Vue.component('son',{
+        template:'#son',
+        data() {
+            return {
+                soncount:0
+            }
+        },
+        created() {
+            console.log('子组件创建完成')
+        },
+        mounted(){
+            console.log('子组件DOM渲染完成')
+        },
+        updated() {
+            console.log('子组件更新DOM渲染完成')
+        },
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        created() {
+            console.log('根组件创建完成')
+        },
+        mounted(){
+            console.log('根组件DOM渲染完成')
+        },
+        updated() {
+            console.log('根组件更新DOM渲染完成')
+        },
+    });
+</script>

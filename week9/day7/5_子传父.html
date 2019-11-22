@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <mycount :count='count' @add123='fn' @minus123='fn'></mycount>
+        <el-button type="primary" icon="el-icon-edit" @click='fn2' class='qqq'></el-button>
+        <my-button @click='fn2' class='qwer'></my-button>
+    </div>
+</body>
+</html>
+
+<template id='mycount'>
+    <div>
+        <h2>数字是{{count}}</h2>
+        <button @click='add'>增加</button>
+        <button @click='minus'>减少</button>
+    </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/element-ui/lib/index.js"></script>
+<script>
+    // 子传父 让父组件使用子组件的数据；也就是子组件可以修改父组件的数据
+    /* 
+        1、$parent
+        2、自定义事件 + $emit(官推)
+        3、$listeners 可以接收所有自定义事件
+        4、provide/inject
+        // 2 3 4这三种方法 都是一个套路： 把父组件的函数 传给子组件，
+            然后再子组件中执行对应的函数，并通过参数的方式 把子组件的数据给父组件
+    */
+    let mycount = {
+        template:'#mycount',
+        props:['count'],// props 优先于 data
+        created() {
+            console.log(this)
+        },
+        methods: {
+            add() {
+                // this.$parent.count++
+                // this.$emit('add123',1,2,3,4,5,6,7)
+                this.$listeners.add123(1,2,3)
+            },
+            minus(){
+                // this.$parent.count--
+                // this.$emit('minus123',100,200,300,400)
+                this.qqq(100,200)
+            }
+        },
+        inject:['qqq']
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            count:0
+        },
+        components:{
+            mycount
+        },
+        methods: {
+            fn(n){
+                console.log(arguments)
+                this.count += n
+            },
+            fn2(){
+                console.log(arguments)
+            }
+        },
+        provide(){
+            return {
+                qqq:this.fn
+            }
+        }
+    });
+</script>
