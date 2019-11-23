@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <bro1></bro1>
+        <div>--------------------------------</div>
+        <bro2></bro2>
+    </div>
+</body>
+</html>
+
+<template id='bro1'>
+    <div>
+        <h1 :style='{color:col1}'>hello world</h1>
+        <button @click='fn1'>改变bro2的字体颜色</button>
+    </div>
+</template>
+<template id='bro2'>
+    <div>
+        <h1 :style='{color:col2}'>你好 世界</h1>
+        <button @click='fn2'>改变bro1的字体颜色</button>
+    </div>
+</template>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('bro1',{
+        template:'#bro1',
+        data(){
+            return {
+                col1:'blue'
+            }
+        },
+        created() {
+            // 
+            bus.$on('change1',(val)=>{
+                this.col1 = val
+            })
+        },
+        methods: {
+            fn1(){
+                bus.$emit('change2','green')
+            }
+        },
+    })
+    Vue.component('bro2',{
+        template:'#bro2',
+        data(){
+            return {
+                col2:'red'
+            }
+        },
+        created() {
+            bus.$on('change2',(val)=>{
+                this.col2 = val;
+            })
+        },
+        methods: {
+            fn2(){
+                bus.$emit('change1','orange')
+            }
+        },
+    })
+
+    let bus = new Vue();
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>

@@ -33,14 +33,14 @@
 <body>
     <div id="app">
         <h1>{{name}}</h1>
-        <my-tab :data='ary' @change='fn' @tab-remove='tabRm'></my-tab>
+        <my-tab :data='ary' v-model='index' @change='fn' @tab-remove='tabRm'></my-tab>
     </div>
 </body>
 </html>
 
 <template id='tab'>
     <ul class='tabBox'>
-        <li v-for='(item,index) in data' :class='{current:index === qqq}' @click='tabFn(index,item)'>
+        <li v-for='(item,index) in data' :class='{current:index === value}' @click='tabFn(index,item)'>
             <pre>{{item}}   <span @click.stop='delFn(index)'>X</span></pre>
         </li>
     </ul>
@@ -50,15 +50,17 @@
 <script>
     Vue.component('my-tab',{
         template:'#tab',
-        props:['data'],
+        props:['data','value'],
         data() {
             return {
-                qqq:0
+                // qqq:0
             }
         },
         methods: {
             tabFn(n,str){
-                this.qqq = n;
+                // this.qqq = n;
+                // this.value = n;
+                this.$emit('input',n)
                 this.$emit('change',n,str)
             },
             delFn(n){
@@ -72,7 +74,8 @@
         el:'#app',
         data:{
             name:"珠峰",
-            ary:['css','html','js','vue','node']
+            ary:['css','html','js','vue','node'],
+            index:3
         },
         methods: {
             fn(n,item){

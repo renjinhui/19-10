@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <show></show>
+        <btn></btn>
+        {{$store.state.count}}
+    </div>
+</body>
+</html>
+
+<template id='btn'>
+    <div>
+        <button @click='$store.commit("add")'>+</button>
+        <button @click='$store.commit("minus")'>-</button>
+        <h2>{{$store.state.count}}</h2>
+    </div>
+</template>
+
+<template id='show'>
+    <div>
+        <h1>当前的数子是{{$store.state.count}}</h1>
+    </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    Vue.component('btn',{
+        template:'#btn',
+        created() {
+            console.log(this)
+        },
+    })
+    Vue.component('show',{
+        template:'#show',
+        created() {
+            console.log(this)
+        },
+    })
+    let store = new Vuex.Store({
+        state:{
+            count:100
+        },
+        mutations:{
+            add(qqq){
+                // qqq就是上边的state;
+                qqq.count++
+            },
+            minus(state){
+                state.count--
+            }
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        store:store,
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>

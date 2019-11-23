@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            border:1px solid #eee;
+            border-radius: 10px;
+            width: 500px;
+            margin: auto;
+            box-shadow: 5px 7px 10px 5px #333
+        }
+        ul li:nth-child(2n){
+            background: rgb(87, 230, 230);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <list :data='ary'>
+            <template slot-scope="qqq">
+                <h2>姓名：<i>{{qqq.www.name}}</i>； 年龄：<i>{{qqq.www.age}}</i></h2>
+                索引是{{qqq.$index}}
+            </template>
+        </list>
+    </div>
+</body>
+
+<template id='list'>
+    <ul>
+        <li v-for='(item,index) in data' :key='item.age'>
+            <slot :www='item' :$index='index'></slot>
+        </li>
+    </ul>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let list = {
+        template:'#list',
+        props:['data']
+    }
+    let vm = new Vue({
+        el:'#app',
+        components:{
+            list
+        },
+        data:{
+            name:"珠峰",
+            ary:[{name:'小明',age:18},{name:'小明2',age:182},{name:'小明3',age:183}]
+        }
+    });
+</script>
