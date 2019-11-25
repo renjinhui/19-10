@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <h2>当前数字是 {{count}}</h2>
+
+        <my-btn></my-btn>
+    </div>
+</body>
+</html>
+
+<template id='myBtn'>
+    <div>
+        <button @click='add'>+</button>
+        <button @click='minus'>-</button>
+
+        <button @click='asyncAdd'>异步+</button>
+        <button @click='asyncMinus'>异步-</button>
+    </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    Vue.component('my-btn',{
+        template:'#myBtn',
+        methods: {
+            ...Vuex.mapMutations(['add','minus']),
+            ...Vuex.mapActions({
+                asyncMinus:'actionMinus'
+            }),
+            asyncAdd(){
+                this.$store.dispatch('actionAdd',{})// 只有两个参数
+            },
+            // asyncMinus(){}
+        },
+    })
+
+    let store = new Vuex.Store({
+        state:{
+            count:0
+        },
+        mutations:{
+            add(state,option){
+                state.count+=2
+            },
+            minus(state,option){
+                state.count--
+            }
+        },
+        actions:{
+            // 都是一些函数，mutations中的函数 需要通过 commit触发
+            // actions中的函数需要通过 dispatch 触发
+            actionAdd({commit,dispatch},option){
+                console.log(arguments)
+                // commit('add')
+                dispatch('actionMinus')
+                setTimeout(() => {
+                    commit('add')
+                }, 1000);
+            },
+            actionMinus(store,option){
+                setTimeout(() => {
+                    store.commit('minus')
+                }, 1000);
+            }
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        store,
+        data:{
+            name:"珠峰"
+        },
+        computed: {
+            ...Vuex.mapState(['count'])
+        }
+    });
+</script>

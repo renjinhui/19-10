@@ -12,13 +12,14 @@
         <show></show>
         <btn></btn>
         {{$store.state.count}}
+        {{$store.state.a.a}}
     </div>
 </body>
 </html>
 
 <template id='btn'>
     <div>
-        <button @click='$store.commit("add")'>+</button>
+        <button @click='fn'>+</button>
         <button @click='$store.commit("minus")'>-</button>
         <h2>{{$store.state.count}}</h2>
     </div>
@@ -37,6 +38,12 @@
         template:'#btn',
         created() {
             console.log(this)
+        },
+        methods: {
+            fn(){
+                this.$store.commit("add");
+                this.$store.commit('a/add')
+            }
         },
     })
     Vue.component('show',{
@@ -57,6 +64,30 @@
             minus(state){
                 state.count--
             }
+        },
+        modules:{
+            a:{
+                namespaced: true,
+                state:{
+                    a:0
+                },
+                mutations:{
+                    add(state){
+                        // console.log(state)
+                        state.a++
+                    }
+                }
+            },
+            b:{
+                state:{
+                    b:10
+                },
+                mutations:{
+                    add(state){
+                        console.log(state)
+                    }
+                }
+            }
         }
     })
     let vm = new Vue({
@@ -64,6 +95,9 @@
         store:store,
         data:{
             name:"珠峰"
+        },
+        created() {
+            console.log(this)
         }
     });
 </script>

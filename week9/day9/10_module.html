@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            {{$store.getters.countType}}
+            {{countType}}
+        <h1>{{name}}</h1>
+        <h2>当前数字是 {{count}}</h2>
+
+        <my-btn></my-btn>
+    </div>
+</body>
+</html>
+
+<template id='myBtn'>
+    <div>
+        {{$store.getters.countType}}
+        <button @click='add'>+</button>
+        <button @click='minus'>-</button>
+
+        <button @click='asyncAdd'>异步+</button>
+        <button @click='asyncMinus'>异步-</button>
+    </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    Vue.component('my-btn',{
+        template:'#myBtn',
+        methods: {
+            ...Vuex.mapMutations(['add','minus']),
+            ...Vuex.mapActions({
+                asyncMinus:'actionMinus'
+            }),
+            asyncAdd(){
+                this.$store.dispatch('actionAdd',{})// 只有两个参数
+
+                // 修改state中的a下的 name属性；
+                this.$store.commit('a/change',{name:"珠峰培训"})
+            },
+        },
+    })
+
+    //登录模块
+    let loginModule = {
+        namespaced:true,
+        // 告诉vuex这个空间属于一个独立的命名空间，不写这个属性的时候
+        // 所有的mutations和actions中的方法 都可以直接通过commit或者dispatch调用
+        // 写了之后 我们再调用对应的方法时，需要加上对应模块属性名的前缀
+        state:{
+            name:'珠峰',
+            psw:''
+        },
+        mutations:{
+            // 函数名若与其他模块重复， 则各个模块对应的函数都会执行
+            change(state,option){
+                state.name = option.name || '';
+                state.psw = option.psw || '';
+            },
+            add(){
+                console.log(666)
+            }
+        },
+        actions:{
+            changeAction(store,option){
+                setTimeout(() => {
+                    store.commit('change',option)
+                }, 2000);
+            }
+        }
+    }
+
+    let store = new Vuex.Store({
+        state:{
+            count:0
+        },
+        modules:{
+           a:loginModule 
+        },
+        mutations:{
+            add(state,option){
+                state.count+=2
+            },
+            minus(state,option){
+                state.count--
+            }
+        },
+        actions:{
+            // 都是一些函数，mutations中的函数 需要通过 commit触发
+            // actions中的函数需要通过 dispatch 触发
+            actionAdd({commit,dispatch},option){
+                console.log(arguments)
+                setTimeout(() => {
+                    commit('add')
+                }, 1000);
+            },
+            actionMinus(store,option){
+                setTimeout(() => {
+                    store.commit('minus')
+                }, 1000);
+            }
+        },
+        getters:{
+            countType(state){
+                // vuex的计算属性 该函数只有当count发生改便的时候才能触发
+                let {count} = state;
+                return count%2 == 0 ? '偶数' : '奇数'
+            }
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        store,
+        data:{
+            // name:"珠峰"
+        },
+        computed: {
+            ...Vuex.mapState(['count']),
+            ...Vuex.mapState({
+                name:state=>state.a.name
+            }),
+            ...Vuex.mapGetters(['countType'])
+        }
+    });
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-btn></my-btn>
+    </div>
+</body>
+</html>
+<template id='myBtn'>
+    <div>
+        <h1>{{count}}</h1>
+        <h2>{{name}}</h2>
+        <input type="text" v-model='name'>
+    </div>
+</template>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let store = new Vuex.Store({
+        state:{
+            // 存放公用数据的地方
+            name:"珠峰",
+            count:100
+        },
+        mutations:{
+            // 存储的都是用来改变 state中的状态  的方法
+            // 我们需要通过 $store.commit这个方法来触发对应的函数；
+            changeName(state,option){
+                state.name = option.qqq
+            }
+        }
+    })
+    Vue.component('my-btn',{
+        template:"#myBtn",
+        data() {
+            return {
+               
+            }
+        },
+        computed: {
+            /* count(){
+                return this.$store.state.count
+            } */
+            ...Vuex.mapState(['count']),
+            /* name(){
+                return this.$store.state.name
+            } */
+            name:{
+                get(){
+                    return this.$store.state.name
+                },
+                set(newVal){
+                    // this.$store.state.name = newVal;
+                    this.$store.commit('changeName',{qqq:newVal})
+                }
+            }
+
+        },
+    })
+    let vm = new Vue({
+        el:'#app',
+        store,// 注入完成之后  每一个后代组件身上都会有一个$store属性
+        data:{
+           
+        },
+        computed: {
+            // ...Vuex.mapState(['name'])
+            ...Vuex.mapState({
+                name:state=>state.name + "培训"
+            })
+        },
+    });
+</script>

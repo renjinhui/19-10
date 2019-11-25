@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-btn>
+            <template slot='header'>
+                <div @click='fn'>
+                    {{name}}{{age}}{{sex}}
+                </div>
+            </template>
+        </my-btn>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+        父子： 自定义属性+props  自定义事件+$emit
+               $parent  $children  $refs  通过获取对应的实例
+               $attrs(获取没有被props接收的行内自定义属性)   
+               $listeners(获取行内自定义事件)
+               provide/inject  父组件设置 所有的后代组件都能使用
+               eventBus  单建一个vue实例 使用$on 和 $emit 实现数据交互
+               vuex
+
+        插槽   自定义组件标签 包含的部分 我们可以使用插槽的方式转化 
+                <my-btn>             <slot>
+                    <h1></h1>           默认展示的内容
+                </my-btn>            </slot>
+
+                <my-btn>                           <slot name='header'>
+                    <h1 slot='header'></h1>           默认展示的内容
+                </my-btn>                          </slot>
+
+                <my-btn :data='[1,2,3,4,5]'>                                   <slot name='header' :aaa='data[0]'>
+                    <h1 slot='header' slot-scope='qqq'>{{qqq.aaa}}</h1>           默认展示的内容
+                </my-btn>  
+                                                                    </slot>
+                <my-btn>                                               <slot name='header' :aaa='12345'>
+                    <h1 v-slot:header='swsw'>{{swsw.aaa}}</h1>           默认展示的内容
+                </my-btn>                                              </slot>
+        
+        JSX  $createElement(标签名,{行内属性},标签内容) 返回值是一个虚拟DOM
+        Vue.component('my-btn',{
+            template:'#myBtn'
+        })
+        Vue.component('my-btn',{
+            render(h){
+                // h ---> createElement
+                return h()
+            }
+        })
+
+        v-model   :value  @input
+                  
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>
