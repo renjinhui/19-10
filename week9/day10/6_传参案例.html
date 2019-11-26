@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-link to='/home'>首页</router-link>
+        <router-link to="/list">列表页</router-link>
+
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+        
+    </div>
+</body>
+</html>
+
+    <template id='home'>
+        <div>
+            <input type="text" v-model='data'>
+            <!-- <button>提交</button> -->
+            <router-link :to="{path:'/list',query:{q:data}}" tag='button'>提交</router-link>
+        </div>
+    </template>
+
+    <template id='list'>
+        <div>
+            <ul>
+                <li v-for='item in ary'>{{item}}</li>
+            </ul>
+        </div>
+    </template>
+
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.use(VueRouter);
+    let home = {
+        template:'#home',
+        data() {
+            return {
+                data:''
+            }
+        },
+    }
+    let list = {
+        template:'#list',
+        data() {
+            return {
+                ary:[]
+            }
+        },
+        created() {
+            console.log(this.$route.query)
+            this.ary.push(this.$route.query.q)
+        },
+        activated() {
+            this.ary.push(this.$route.query.q)
+        },
+    }
+    const routes = [
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list
+        }
+    ]
+    let router = new VueRouter({
+        routes
+    })
+
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>

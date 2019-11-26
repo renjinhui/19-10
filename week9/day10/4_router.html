@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .enter{
+            animation: enterMove 0.5s ease-in;
+        }
+        .leave{
+            animation: leaveMove 0.5s ease-in ;
+        }
+        @keyframes enterMove{
+            0%{
+                opacity: 0;
+                transform: translateX(-200px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes leaveMove{
+            0%{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+            100%{
+                opacity: 0;
+                transform: translateX(200px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-link to='/home'>首页</router-link>
+        <router-link to='/list'>列表页</router-link>
+        <div>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </div>
+        
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+        先造路由实例 然后把实力挂在到根实例上
+        创造路由实例的时候 我们需要创建路由映射表（就是一个数组）
+
+        router-link 用来展示对应导航的 to属性决定跳转的路径
+        router-view 用来展示导航对应的组件
+    */
+    // SPA   single page application
+    Vue.use(VueRouter)
+    let home = {
+        template:"<h2>首页</h2>",
+        destroyed() {
+            console.log('首页组件销毁了')
+        },
+        activated() {
+            console.log('首页组件醒了')
+        },
+        deactivated() {
+            console.log('首页组件睡了')
+        },
+    }
+    let list = {
+        template:"<h2>列表页</h2>",
+        destroyed() {
+            console.log('列表组件销毁了')
+        },
+        activated() {
+            console.log('列表组件醒了')
+        },
+        deactivated() {
+            console.log('列表组件睡了')
+        },
+    }
+    let router = new VueRouter({
+        routes:[
+            // 路由映射表
+            {
+                path:'/home',
+                component:home
+            },
+            {
+                path:'/list',
+                component:list
+            }
+        ]
+    })
+    let vm = new Vue({
+        el:'#app',
+        router:router,
+        data:{
+            name:"珠峰",
+        },
+       
+    });
+</script>

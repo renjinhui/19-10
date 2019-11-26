@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        {{$store.state.count}}
+        -----------
+        {{$store.state.a.qqq}}
+
+        <button @click='myfn'>+</button>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    let store = new Vuex.Store({
+        state:{
+            count:0
+        },
+        mutations:{
+            change(state,option){
+                state.count++
+            }
+        },
+        actions:{
+            change(store,option){
+                store.commit('change')
+            },
+            change2({commit},option){
+                commit('change')
+            }
+        },
+        getters:{
+            countType(state){
+                return state.count%2==0 ? '偶数' : '奇数'
+            }
+        },
+        modules:{
+            a:{
+                namespaced:true,
+                state:{
+                    qqq:0
+                },
+                mutations:{
+                    change(state){
+                        state.qqq++
+                    }
+                }
+            },
+            b:{}
+        }
+    })
+    // mapState
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        store,
+        computed: {
+            qqq(){
+                return 555
+            },
+            ...Vuex.mapState(['count']),
+            ...Vuex.mapState({
+                mycount:'count'
+            }),
+            ...Vuex.mapState({
+                mycount:(state)=>state.count
+            }),
+
+        },
+        methods: {
+            ...Vuex.mapActions({
+                mychange:function(dispatch,option){
+                    dispatch('change',option)
+                }
+            }),
+            ...Vuex.mapMutations({
+                mychange2:function(commit,option){
+                    commit('change',option)
+                }
+            }),
+            ...Vuex.mapActions(['change2']),
+            myfn(){
+                // this.$store.commit('mutations中的函数');
+                // this.$store.dispatch('actions中的函数')
+                // this.$store.commit('change')
+                this.$store.commit('a/change')
+            }
+        },
+    });
+</script>

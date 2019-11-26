@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .enter{
+            animation: enterMove 0.5s ease-in;
+        }
+        .leave{
+            animation: leaveMove 0.5s ease-in ;
+        }
+        @keyframes enterMove{
+            0%{
+                opacity: 0;
+                transform: translateX(-200px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes leaveMove{
+            0%{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+            100%{
+                opacity: 0;
+                transform: translateX(200px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <!-- <button @click='flag = true'>首页</button>
+        <button @click='flag = false'>列表页</button>
+        <home v-show='flag'></home>
+        <list v-show='!flag'></list> -->
+
+
+        <button @click='home'>首页</button>
+        <button @click='list'>列表页</button>
+
+        <!-- 动态组件 -->
+        <transition
+            mode='out-in'
+            enter-active-class="enter"
+            leave-active-class="leave"
+        >
+            <keep-alive>
+                <component :is="comId"></component>
+            </keep-alive>
+        </transition>
+        
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // SPA   single page application
+    let home = {
+        template:"<h2>首页</h2>",
+        destroyed() {
+            console.log('首页组件销毁了')
+        },
+        activated() {
+            console.log('首页组件醒了')
+        },
+        deactivated() {
+            console.log('首页组件睡了')
+        },
+    }
+    let list = {
+        template:"<h2>列表页</h2>",
+        destroyed() {
+            console.log('列表组件销毁了')
+        },
+        activated() {
+            console.log('列表组件醒了')
+        },
+        deactivated() {
+            console.log('列表组件睡了')
+        },
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            flag:true,
+            comId:list
+        },
+        methods: {
+            home(){
+                this.comId = home 
+            },
+            list(){
+                this.comId = list
+            }
+        },
+        /* components:{
+            home,list
+        } */
+    });
+    // 动态组件  转场动画  keep-alive   activated deactivated
+</script>
