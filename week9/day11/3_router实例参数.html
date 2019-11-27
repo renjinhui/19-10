@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-view></router-view>
+        
+        <!-- 
+            两个类名
+                1\ router-link-exact-active
+                2\ router-link-active
+                exact类名 只有当路径、参数与地址栏中的一摸一样时，
+                        才会加上这个类名
+                若路径一样 但是参数值不一样时 只有 2类名；
+                若路径一样 但是参数个数一样但是参数名不一样， 则两个类名都不加
+                若路径一样 但是参数个数少了若干个，存在的参数名一样， 则只有2类名        
+
+        -->
+        <router-link to="/home?a=22" active-class='qwee' exact-active-class='eee'>首页</router-link>
+        <router-link to="/home">首页</router-link>
+        <router-link :to="{name:'list',query:obj}">列表页</router-link>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    Vue.use(VueRouter);
+    /* 
+        路由映射表 是个数组
+        router-link  to   tag  query  
+        router-view
+        $router  $route
+    */
+    let home = {
+        template:"<h2>首页</h2>",
+        created() {
+            console.log(this.$route.query)
+        },
+    }
+    let list = {
+        template:"<h2>列表页</h2>",
+        created() {
+            console.log(this)
+        },
+    }
+
+    let page404 = {
+        template:'<h2>404</h2>'
+    }
+
+    const routes = [
+        {
+            path:'/',
+            redirect:'/list'
+        },
+        {
+            path:'/home',
+            name:'home',
+            component:home
+        },
+        {
+            path:'/list',
+            name:'list',
+            component:list
+        },
+        /* {
+            //创造404页
+            path:'*',
+            component:page404
+        } */
+        // {
+        //     // 重定向  凡是匹配不到的路径 统一转到home路径
+        //     path:'*',
+        //     redirect:'/home'
+        // }
+    ]
+    let router = new VueRouter({
+        // 所有的激活类名都被换成指定的字符，写在行内的哪些只能更改当前哪个元素的，改不了其他的
+        linkActiveClass:'qqq', // 默认 router-link-active
+        linkExactActiveClass:'aaa',// 默认  router-link-exact-active
+        routes,
+        mode:'hash',// 默认  hash  必须要让后台支持，让后台 把你定义的这些路径都返回你的页面，不要返回404
+    })
+
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            name:"珠峰",
+            obj:{
+                a:12,
+                b:23,
+                c:34
+            }
+        }
+    });
+    /* 
+        激活的类名  linkActiveClass   linkExactActiveClass
+        mode: history  hash   ; history模式需要后台配合
+        404页面怎么创造   path:'*'
+        重定向怎么做？    redirect
+    */
+</script>

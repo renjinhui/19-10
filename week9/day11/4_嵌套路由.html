@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-link to="/home">首页</router-link>
+        <router-link to="/list">列表页</router-link>
+
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<template id='list'>
+    <div>
+        <h1>列表页</h1>
+        <!-- <router-link to="/list/nav1">导航1</router-link>
+        <router-link to="/list/nav2">导航2</router-link> -->
+        <button @click='fn'>导航1</button>
+        <router-view></router-view>
+    </div>
+</template>
+<script>
+    Vue.use(VueRouter)
+    let home = {
+        template:"<h2>首页</h2>",
+        created() {
+            console.log(this.$route.query)
+        },
+    }
+    let list = {
+        template:"#list",
+        created() {
+            console.log(this)
+        },
+        methods: {
+            fn(){
+                if(this.$route.fullPath==='/list/nav1')return;
+                this.$router.push('/list/nav1')
+                // push 的参数 与  :to 后边跟 的内容一样
+                //：:to='{path name query  params}'
+            }
+        },
+    }
+    let nav1 = {
+        template:"<h2>这时list下的nav1</h2>"
+    }
+    let nav2 = {
+        template:"<h2>这时list下的nav2</h2>"
+    }
+
+    let page404 = {
+        template:'<h2>404</h2>'
+    }
+    const routes = [
+        {
+            path:'/',
+            redirect:'/home'
+        },
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list,
+            children:[
+                {
+                    path:'/list/nav1',
+                    component:nav1
+                },
+                {
+                    path:'nav2',
+                    component:nav2
+                }
+            ]
+        },
+        {
+            path:'*',
+            component:page404
+        }
+    ];
+    let router = new VueRouter({
+        mode:'hash',
+        // base:'/app/',
+        routes,
+        // base:'/app/'
+    })
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            name:"珠峰"
+        }
+    });
+    // 路由映射表 传参  模式 路由嵌套 404 重定向  编程式导航
+</script>

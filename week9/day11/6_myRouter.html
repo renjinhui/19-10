@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-link to="/nav1">导航1</router-link>
+        <router-link to="/nav2">导航2</router-link>
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="./router/index.js"></script>
+<script>
+    Vue.use(VueRouter)
+    let nav1 = {
+        template:"<h1>这时list下的nav1</h1>"
+    }
+    let nav2 = {
+        template:"<h2>这时list下的nav2</h2>"
+    }
+    let router = new VueRouter({
+        routes:[
+            {
+                path:'/nav1',
+                component:nav1
+            },
+            {
+                path:'/nav2',
+                component:nav2
+            }
+        ]
+    })
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            name:"珠峰"
+        }
+    });
+</script>

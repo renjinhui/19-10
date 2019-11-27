@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-view></router-view>
+        <router-link to="/home/123/234">首页</router-link>
+        <router-link to="/list/hello/world">列表页</router-link>
+        
+        <!--      若是路径传参  只能写name 不能用path       -->
+        <router-link :to="{name:'home',params:{qqq:12,aaa:00001}}">首页</router-link>
+        <router-link :to="{name:'list',params:{www:111,eee:222}}">列表页</router-link>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    Vue.use(VueRouter);
+    /* 
+        路由映射表 是个数组
+        router-link  to   tag  query  
+        router-view
+        $router  $route
+
+        params传参  先动路由映射表 改成参数为/:参数名的方式
+                    必须有name这个属性
+                    :to={对象中只能写name不能写path}
+                    获取的时候 通过 $route.params获取
+    */
+    let home = {
+        template:"<h2>首页</h2>",
+        created() {
+            console.log(this.$route.query)
+        },
+    }
+    let list = {
+        template:"<h2>列表页</h2>",
+        created() {
+            console.log(this)
+        },
+    }
+
+    const routes = [
+        {
+            path:'/home/:qqq/:aaa',
+            name:'home',
+            component:home
+        },
+        {
+            path:'/list/:www/:eee',
+            name:'list',
+            component:list
+        }
+    ]
+    let router = new VueRouter({
+        routes,
+    })
+
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            name:"珠峰",
+            obj:{
+                a:12,
+                b:23,
+                c:34
+            }
+        }
+    });
+</script>
