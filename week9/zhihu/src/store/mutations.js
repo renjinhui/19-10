@@ -13,3 +13,7 @@ export const add = (state,option)=>{
 export function minus(state,option){
     state.count -= option.n
 }
+
+export function stateChange(state,option){
+    state.loginState = option.loginState
+}

@@ -17,7 +17,7 @@
                 </router-link>
             </div>
             <div>
-                <i class='iconfont icon-yingyong-'></i>
+                <i class='iconfont icon-yingyong- add'></i>
             </div>
             <div>
                 <router-link to="/notify">
@@ -28,7 +28,7 @@
             <div>
                 <router-link to="/user">
                     <i class='iconfont icon-icon-user'></i>
-                    <div>我的</div>
+                    <div>{{loginState ? "我的" : '未登录'}}</div>
                 </router-link>
             </div>
         </nav>
@@ -36,11 +36,15 @@
 </template>
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex';
 export default {
   data() {
     return {};
   },
-  components: {}
+  components: {},
+  computed: {
+    ...mapState(["loginState"])
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -57,6 +61,27 @@ nav {
   > div {
     flex: 1;
     text-align: center;
+    > a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      width: 100%;
+      height: 100%;
+      i {
+        font-size: 7vw;
+        font-weight: 800;
+      }
+      div {
+        font-size: 5vw;
+      }
+    }
+    i.add {
+      font-size: 10vw;
+      color: rgb(16, 125, 214);
+    }
+    a.router-link-active {
+      color: rgb(37, 148, 223);
+    }
   }
 }
 </style>
