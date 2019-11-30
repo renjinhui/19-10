@@ -41,6 +41,11 @@ export default {
   data() {
     return {};
   },
+  created() {
+      if(!localStorage.getItem('token')){
+          // this.$router.push('/login')
+      }
+  },
   components: {},
   computed: {
     ...mapState(["loginState"])
