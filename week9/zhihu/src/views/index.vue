@@ -53,9 +53,13 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.mainPage>div:nth-child(1){
+    padding-bottom: 18vw;
+}
 //scoped 当前样式 只对当前模板 起作用
 nav {
   position: fixed;
+  background: #fff;
   bottom: 0;
   left: 0;
   width: 100%;
