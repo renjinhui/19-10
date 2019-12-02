@@ -17,7 +17,7 @@
                 </router-link>
             </div>
             <div>
-                <i class='iconfont icon-yingyong- add'></i>
+                <i class='iconfont icon-yingyong- add' @click='show'></i>
             </div>
             <div>
                 <router-link to="/notify">
@@ -32,24 +32,40 @@
                 </router-link>
             </div>
         </nav>
+        <my-dialog :isshow='flag' @close='close'>
+            你好哈年后年后年后的
+        </my-dialog>
     </div>
 </template>
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex';
+import dialog from '@/components/dialog.vue'
 export default {
   data() {
-    return {};
+    return {
+        flag:false
+    };
   },
   created() {
       if(!localStorage.getItem('token')){
           // this.$router.push('/login')
       }
   },
-  components: {},
+  components: {
+      'my-dialog':dialog
+  },
   computed: {
     ...mapState(["loginState"])
-  }
+  },
+  methods: {
+      show(){
+          this.flag = true;
+      },
+      close(){
+          this.flag = false;
+      }
+  },
 };
 </script>
 <style lang="less" scoped>
