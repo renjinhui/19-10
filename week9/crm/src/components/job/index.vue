@@ -1,16 +1,15 @@
 <template>
     <div>
-        首页
-        <router-view></router-view>
+        植物管理
     </div>
 </template>
 <script>
 // @ is an alias to /src
 export default {
-    name: 'index',
+    name: 'XXX',
     data() {
         return {
-            
+        
         }
     },
     components: {

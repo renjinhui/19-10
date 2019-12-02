@@ -2,13 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '../views/index.vue'
 
+import org from './org'
+import crm from './customer'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: Index
+    component: Index,
+    children:[].concat(org,crm)
   },
   {
     path: '/login',

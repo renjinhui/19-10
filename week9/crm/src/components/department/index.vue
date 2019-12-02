@@ -1,7 +1,6 @@
 <template>
     <div>
-        首页
-        <router-view></router-view>
+        部门管理
     </div>
 </template>
 <script>
@@ -10,7 +9,7 @@ export default {
     name: 'index',
     data() {
         return {
-            
+        
         }
     },
     components: {
