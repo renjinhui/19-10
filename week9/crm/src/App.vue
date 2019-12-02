@@ -7,6 +7,7 @@
 import {init} from '@/api/login.js'
 export default {
   created() {
+    console.log(this)
     init(this)
   },
 }
