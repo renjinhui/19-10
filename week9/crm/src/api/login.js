@@ -1,4 +1,4 @@
-import http from './index'
+import http from './http'
 let that = null;
 export function init(_this) {
     that = _this;

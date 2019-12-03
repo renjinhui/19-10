@@ -26,12 +26,22 @@
 </template>
 <script>
 // @ is an alias to /src
+// 在该组件 验证 登录
+import { judgeLogin } from "@/api/index.js";
 export default {
     name: 'index',
     data() {
         return {
             
         }
+    },
+    created() {
+        judgeLogin().then(flag=>{
+            // 若 flag是false 代表登录状态时失败的  直接跳转到登录页
+            if(!flag){
+                this.$router.push('/login')
+            }
+        })
     },
     components: {
         

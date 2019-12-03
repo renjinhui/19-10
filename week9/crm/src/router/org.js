@@ -4,6 +4,7 @@ import job from '@/components/job'
 import addJob from '@/components/job/add'
 import user from '@/components/user'
 import addUser from '@/components/user/add'
+//userhandle|departhandle|jobhandle|departcustomer|allcustomer|resetpassword
 export default [
     {
         path:'/org/department',
@@ -12,7 +13,9 @@ export default [
         meta:{
             type:'department',
             rootTil:"部门管理",
-            til:'部门列表'
+            til:'部门列表',
+            icon:'el-icon-s-operation',
+            power:'departhandle'
         }
     },
     {
@@ -22,7 +25,9 @@ export default [
         meta:{
             type:'department',
             rootTil:"部门管理",
-            til:'新增部门'
+            til:'新增部门',
+            icon:'el-icon-s-operation',
+            power:'departhandle'
         }
     },
     {
@@ -32,7 +37,9 @@ export default [
         meta:{
             type:'job',
             rootTil:"职务管理",
-            til:'职务列表'
+            til:'职务列表',
+            icon:'el-icon-suitcase',
+            power:'jobhandle'
         }
     },
     {
@@ -42,7 +49,9 @@ export default [
         meta:{
             type:'job',
             rootTil:"职务管理",
-            til:'新增职务'
+            til:'新增职务',
+            icon:'el-icon-suitcase',
+            power:'jobhandle',
         }
     },
     {
@@ -52,7 +61,9 @@ export default [
         meta:{
             type:'user',
             rootTil:"员工管理",
-            til:'员工列表'
+            til:'员工列表',
+            icon:'el-icon-user',
+            power:'userhandle'
         }
     },
     {
@@ -62,7 +73,9 @@ export default [
         meta:{
             type:'user',
             rootTil:"员工管理",
-            til:'员工列表'
+            til:'员工列表',
+            icon:'el-icon-user',
+            power:'userhandle'
         }
     }
 ]
