@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-loop v-for='item in ary' :data='item' :key='item.til'></my-loop>
+        <my-loop v-permission="['a','b']" v-for='item in ary' :data='item' :key='item.til'></my-loop>
     </div>
 </template>
 <script>
@@ -48,6 +48,11 @@ export default {
     },
     components: {
         'my-loop':QQQ
+    },
+    directives:{
+        permission(){
+            console.log(arguments[3])
+        }
     }
 }
 </script>

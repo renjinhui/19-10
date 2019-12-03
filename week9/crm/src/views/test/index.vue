@@ -1,7 +1,7 @@
 <template>
     <div style='padding:0 50px' class="qwerewert">
         <h1>{{data.til}}</h1>
-        <qqq v-for='i in data.children' :data='i' :key='i.til'></qqq>
+        <!-- <qqq v-for='i in data.children' :data='i' :key='i.til'></qqq> -->
     </div>
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
     props:['data'],
     data() {
         return {
-            
+            z:12
         }
     },
     components: {

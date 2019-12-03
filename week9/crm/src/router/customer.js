@@ -1,16 +1,16 @@
 export default [
     {
-        path:'/my',
+        path:'/crm/my',
         name:'my',
         component:() => import(/* webpackChunkName: "customer" */ '@/components/customer/my')
     },
     {
-        path:'/addCustomer',
+        path:'/crm/addCustomer',
         name:'addCustomer',
         component:() => import(/* webpackChunkName: "customer" */ '@/components/customer/add')
     },
     {
-        path:'/all',
+        path:'/crm/all',
         name:'all',
         component:() => import(/* webpackChunkName: "customer" */ '@/components/customer/all')
     }

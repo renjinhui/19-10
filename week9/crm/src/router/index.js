@@ -12,7 +12,21 @@ const routes = [
     path: '/',
     name: 'index',
     component: Index,
-    children:[].concat(org,crm)
+    redirect:'/org',
+    children:[
+      {
+        path:'/org',
+        name:'org',
+        component:()=>import('../views/org.vue'),
+        children:org
+      },
+      {
+        path:'/crm',
+        name:'crm',
+        component:()=>import('../views/crm.vue'),
+        children:crm
+      }
+    ]
   },
   {
     path: '/login',
