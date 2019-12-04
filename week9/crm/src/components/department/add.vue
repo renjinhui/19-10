@@ -70,6 +70,6 @@ export default {
   text-align: left;
   background: #fff;
   padding: 20px;
-  height: 100%;
+  min-height: 100%;
 }
 </style>

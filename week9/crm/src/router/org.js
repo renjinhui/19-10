@@ -73,7 +73,7 @@ export default [
         meta:{
             type:'user',
             rootTil:"员工管理",
-            til:'员工列表',
+            til:'新增员工',
             icon:'el-icon-user',
             power:'userhandle'
         }

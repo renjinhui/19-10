@@ -24,3 +24,12 @@ export function addDpList(option){
 export function updateDpList(option){
   return http.post('/department/update',option)
 }
+
+
+// 获取用户列表接口
+export function getUserList(option){
+  // option ==>  {departmentId:0,search:''}
+  return http.get('/user/list',{
+    params:option
+  })
+}
