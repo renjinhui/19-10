@@ -39,6 +39,10 @@ const routes = [
   {
     path:'/test',
     component:() => import('../views/test/test.vue')
+  },
+  {
+    path:'*',// 走到不存在的路径时 重新跳转到首页
+    redirect:'/'
   }
 ]
 

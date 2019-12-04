@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     menuInit() {
-    //   console.log(ary);
+      //   console.log(ary);
       let t = [this.ary[0]]; // 把6项拆成3项
       this.ary.reduce((prev, cur) => {
         if (prev.meta.type == cur.meta.type) {
@@ -57,6 +57,16 @@ export default {
         return this.power.includes(item[0].meta.power);
       });
       console.log(this.menuList);
+      // 权限校验完成之后 设置默认的跳转路径
+      let url = this.menuList[0] && this.menuList[0][0].path
+      let ary = this.$route.path.split('/');
+      if(ary.length>2&&ary.pop().length>0){
+        // 说明路径是在二级路径下，这时什么也不用做
+        //ary.length>2 说明至少由两个 /
+        // ary.pop().length>0 说明最后一项的长度不是0； 也就是第二个/后边有内容， 也就是当前是二级路径
+      }else{
+        this.$router.push(url)
+      }
     }
   },
   components: {}

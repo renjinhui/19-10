@@ -1,11 +1,15 @@
 <template>
     <div>
         <my-loop v-permission="['a','b']" v-for='item in ary' :data='item' :key='item.til'></my-loop>
+    
+        <my-inp v-model='val'></my-inp>
+        {{val}}
     </div>
 </template>
 <script>
 // @ is an alias to /src
 import QQQ from './index.vue'
+import INP from './index2'
 export default {
     name: 'XXX',
     data() {
@@ -43,11 +47,13 @@ export default {
                         }
                     ]
                 }
-            ]
+            ],
+            val:'qqq www'
         }
     },
     components: {
-        'my-loop':QQQ
+        'my-loop':QQQ,
+        'my-inp':INP
     },
     directives:{
         permission(){
