@@ -33,3 +33,15 @@ export function getUserList(option){
     params:option
   })
 }
+// 新增用户
+export function addUserList(option){
+  return http.post('/user/add',option)
+}
+
+
+
+
+// 获取职务列表
+export function getJobList(){
+  return http.get('/job/list')
+}

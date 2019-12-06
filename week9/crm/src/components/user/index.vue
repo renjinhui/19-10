@@ -68,7 +68,9 @@ export default {
     handleSelectionChange(val) {
       console.log(val);
     },
-    handleEdit(){},
+    handleEdit(index,row){
+      this.$router.push({path:'/org/addUser',query:{id:row.id}})
+    },
     handleDelete(){},
     selectChange(val){
       // console.log(val)

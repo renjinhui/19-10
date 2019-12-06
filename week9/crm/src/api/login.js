@@ -18,3 +18,7 @@ export function login(option) {
         return data //给后边then的参数
     })
 }
+
+export function signout(){
+    return http.get('/user/signout')
+}

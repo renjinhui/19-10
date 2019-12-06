@@ -13,7 +13,7 @@
                 </div>
                 <div class="userNameBox rt">
                     <span>您好，珠峰培训</span>
-                    <span>安全退出</span>
+                    <span @click='logout'>安全退出</span>
                 </div>
             </el-header>
             <div class='middle_content_box'>
@@ -28,6 +28,7 @@
 // @ is an alias to /src
 // 在该组件 验证 登录
 import { judgeLogin } from "@/api/index.js";
+import {signout} from '@/api/login'
 export default {
     name: 'index',
     data() {
@@ -45,7 +46,16 @@ export default {
     },
     components: {
         
-    }
+    },
+    methods: {
+        logout(){
+            signout().then(data=>{
+                if(data.code == 0){
+                    this.$router.push('/login')
+                }
+            })
+        }
+    },
 }
 </script>
 <style lang="less">
