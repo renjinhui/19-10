@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-rate :n=6 v-model='index' type='zan'></my-rate>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="./rate.js"></script>
+<script>
+    Vue.use(Rate)
+    let vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                index: 0,
+                name:'珠峰培训'
+            }
+        },
+    });
+</script>
+<script src=''>
+    /* 
+      el
+      template
+      data 根实例是个对象  其他组件都是函数
+      methods:{不能写箭头函数}
+      computed:{qq(){},qq:{get,set}}
+      watch:{已经存在的变量}
+      filters:{} // 私有过滤器  Vue.filter(名字，函数)
+      directives:{} // 私有自定义指令  Vue.directive(名字，函数)
+      beforeCreate  created
+      beforeMount   mounted
+      beforeUpdate  updated
+      beforeDestroy destroyed
+      activated  deactivated   <keep-alive></keep-alive>
+      components:{}
+      mixins:{}    私有的混入  Vue.mixin({})
+
+      props  接收父组件数据的属性 简写是一个数组
+      props:{type[String,Number]  default   required   validator}
+
+      render:(h)=>{return h('div',{attrs:{}},标签内容)}
+                  标签内容 可以是一段文本 也可以是一个新的虚拟DOM
+                  也可以多个虚拟DOM 用数组[]抱起来即可
+    */
+    let vm = new Vue({
+        el: '#app',
+        mixins: {
+            data: {
+                name: 'qqq',
+                age: 123
+            },
+            created() {
+
+            },
+        },
+        data: {
+            name: "珠峰"
+        },
+        created() {
+
+        },
+        watch: {
+            name(newV, oldV) {},
+            name: {
+                // 一般是用来监听对象类型的
+                deep: true,
+                immediate: true, // 上来先执行一次
+                handler(newV, oldV) {
+
+                }
+            }
+        },
+    });
+</script>

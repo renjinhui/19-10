@@ -1,5 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// const path = require('path')
+// const files = require.context('@/components/home', true, /\.vue$/)
+// const modules = {}
+// files.keys().forEach(key => {
+//   const name = path.basename(key, '.vue')
+//   modules[name] = files(key).default || files(key)
+// })
+// console.log(modules)
 
 // 引入子映射表
 import home from './home'

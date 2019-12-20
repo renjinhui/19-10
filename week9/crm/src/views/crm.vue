@@ -1,7 +1,9 @@
 <template>
     <el-container>
         <my-aside :ary='option'></my-aside>
-        <el-main>CRM====Main</el-main>
+        <el-main>
+            <router-view></router-view>
+        </el-main>
     </el-container>
 </template>
 <script>

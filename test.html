@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            user-select: none;
+        }
+        #box1 {
+            width: 200px;
+            height: 260px;
+            font-size: 20px;
+            border: 1px solid red;
+        }
+
+        #box1>p {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box1 img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box2 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid blue;
+            background: blue;
+        }
+
+        #box3 {
+            width: 300px;
+            height: 300px;
+            background: burlywood;
+            position: fixed;
+            left: 400px;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <p>
+            <img src="http://b.hiphotos.baidu.com/image/pic/item/0eb30f2442a7d9337119f7dba74bd11372f001e0.jpg" alt="">
+        </p>
+    </div>
+    <div id="box2"></div>
+</body>
+
+</html>
+<script>
+  let body = document.body;
+  let ary = [];
+  function getEle(ele,arr){
+    [...ele.children].forEach(item=>{
+      let obj = {};
+      obj.tag = item.tagName;
+      obj.ele = item;
+      t.push(obj);
+      if(item.children){
+        getEle(item,t);
+      }
+    })
+    arr.push(t);
+  }
+  getEle(body,ary);
+  console.log(ary)
+</script>
+<script src=''>
+    let body = document.body;
+    let ary = [];
+    let str='';
+    let s='-';
+    function get(list,ary) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].nodeName != "SCRIPT") {
+                if (list[i].children.length) {
+                    let obj = {};
+                    obj[list[i].nodeName.toLowerCase()] = list[i];
+                    obj.children=[];
+                    ary.push(obj);
+                    get(list[i].children,obj.children)
+                } else {
+                    let obj = {};
+                    obj[list[i].nodeName.toLowerCase()] = list[i];
+                    ary.push(obj);
+                }
+            }
+        }
+    }
+    get(body.children,ary);
+    render(ary,s)
+    create(str)
+    function render(ary,s){
+        ary.forEach(item=>{
+            for (const key in item) {
+                if(item.children){
+                    if(key=='children'){
+                        ss=s;
+                        ss+='-';
+                        render(item[key],ss)
+                    }else{
+                        str+=`<p>${s}${key}</p>`
+                    }
+                }else{
+                    str+=`<p>${s}${key}</p>`
+                }
+            }
+        })
+    }
+    function create(str){
+        let div = document.createElement('div');
+        div.id='box3';
+        div.innerHTML=str;
+        body.appendChild(div);
+    };
+</script>
