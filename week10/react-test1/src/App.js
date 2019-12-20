@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './1.less'
-
+// jsx
 function App() {
   return (
     <div className="App">

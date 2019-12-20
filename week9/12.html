@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-inp v-model='val2'></my-inp>
+        {{val2}}
+        <input type="text" v-model='val2'>
+    </div>
+</body>
+</html>
+<template id='myInp'>
+    <div>
+        <input type="text" name="" id="" v-model='c'>
+        <input type="text" name="" id="" v-model='d'>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-inp', {
+        template: '#myInp',
+        props:['value'],
+        data() {
+            return {
+            }
+        },
+        computed:{
+            c: {
+                get () {
+                    return this.value.split(' ')[0]
+                },
+                set (val) {
+                    let str = this.value.replace(/[^ ]* /, val+ ' ');
+                    this.$emit('input', str)
+                }
+            },
+            d: {
+                get () {
+                    return this.value.split(' ')[1]
+                },
+                set (val) {
+                    let str = this.value.replace(/ [^ ]*/, ' ' + val);
+                    this.$emit('input', str)
+                }
+            }
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            val2: 'ewrwer edad'
+        },
+    });
+</script>
