@@ -1,3 +1,5 @@
+import 'antd/dist/antd.css'
+// import './day3/3_antd'
 // import './day1/1'
 // import './day1/2.js'
 // import './day1/3_selfJSX'
@@ -8,7 +10,13 @@
 // import './day2/5_class'
 // import './day2/6_事件'
 // import './day2/7_父子组件'
-import './day2/8_计时组件'
+// import './day2/8_计时组件'
+// import './day3/1_复习'
+// import './day3/2_父子组件'
+
+// import './day3/4_dialog'
+import './day3/slider/index'
+
 
 
 
