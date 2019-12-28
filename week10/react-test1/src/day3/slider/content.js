@@ -51,6 +51,7 @@ class App extends React.Component {
         let {str} = this.state;
         let {index,isStop} = this.props;
         let ary = this.props.data;// 数据从父组件获取
+
         ary.push(ary[0])
         if(isStop){
           // 若父组件传进来的值是true 也就是要停止动画

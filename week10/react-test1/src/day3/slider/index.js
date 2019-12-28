@@ -17,6 +17,19 @@ class App extends React.Component {
         isStop:true
       })
     }
+    left=()=>{
+      let n = this.state.index;
+      this.setState({
+        index:--n
+      })  
+    }
+    right=()=>{
+      // let n = this.state.index;
+      // this.setState({
+      //   index:++n
+      // })
+      console.log(this.refs.qqq.move())
+    }
     render() {
         let {isStop,index} = this.state;
         return <div className='sliderBox' 
@@ -24,11 +37,12 @@ class App extends React.Component {
           onMouseLeave={()=>{this.setState({isStop:false})}}
           >
             <Content 
+              ref='qqq'
               isStop={isStop}
               index = {index}
               onChangeIndex={(num)=>{this.setState({index:num})}}
               data={['http://cms-bucket.ws.126.net/2019/1227/11e0a90dj00q35c5c0024c000ak0057c.jpg','http://cms-bucket.ws.126.net/2019/1227/175f48f5j00q35f94001rc000cl0069c.jpg','https://yt-adp.ws.126.net/channel12/590185_bkrw_20191227.jpg']}/>
-            <Btn/>
+            <Btn onLeft={this.left} onRight={this.right}/>
             <Dot/>
         </div>;
     }
