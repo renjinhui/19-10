@@ -3,13 +3,14 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          index:0, // 控制显示张数的索引
+          // index:0, // 控制显示张数的索引  需要把index进行状态提升
           str:'left 0.5s',
           length:props.data.length
         }
     }
     move(){
-      let n = ++this.state.index;
+      let n = this.props.index;
+      n++;
       if(n == this.state.length+1){
         n = 0;
         this.setState({
@@ -19,17 +20,19 @@ class App extends React.Component {
         setTimeout(() => {
           this.setState({
             str:'left 0.5s',
-            index:1
+            // index:1
           })
+          this.props.onChangeIndex(1)
         }, 0);
       }else{
         this.setState({
           str:'left 0.5s'
         })
       }
-      this.setState({
-        index:n
-      })
+      // this.setState({
+      //   index:n
+      // })
+      this.props.onChangeIndex(n)
     }
     autoMove(){
       this.timer = setInterval(()=>{
@@ -45,8 +48,8 @@ class App extends React.Component {
       this.autoMove();
     }
     render() {
-        let {index,str} = this.state;
-        let {isStop} = this.props;
+        let {str} = this.state;
+        let {index,isStop} = this.props;
         let ary = this.props.data;// 数据从父组件获取
         ary.push(ary[0])
         if(isStop){
