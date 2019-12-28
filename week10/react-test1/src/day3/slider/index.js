@@ -18,17 +18,19 @@ class App extends React.Component {
       })
     }
     left=()=>{
-      let n = this.state.index;
-      this.setState({
-        index:--n
-      })  
+      // let n = this.state.index;
+      // this.setState({
+      //   index:--n
+      // })  
+      this.refs.contentBox.move(-1)
     }
     right=()=>{
       // let n = this.state.index;
       // this.setState({
       //   index:++n
       // })
-      console.log(this.refs.qqq.move())
+      this.refs.contentBox.move();//直接调用子组件中的函数
+      // console.log(this.refs.qqq.move())
     }
     render() {
         let {isStop,index} = this.state;
@@ -37,13 +39,13 @@ class App extends React.Component {
           onMouseLeave={()=>{this.setState({isStop:false})}}
           >
             <Content 
-              ref='qqq'
+              ref='contentBox'
               isStop={isStop}
               index = {index}
               onChangeIndex={(num)=>{this.setState({index:num})}}
               data={['http://cms-bucket.ws.126.net/2019/1227/11e0a90dj00q35c5c0024c000ak0057c.jpg','http://cms-bucket.ws.126.net/2019/1227/175f48f5j00q35f94001rc000cl0069c.jpg','https://yt-adp.ws.126.net/channel12/590185_bkrw_20191227.jpg']}/>
             <Btn onLeft={this.left} onRight={this.right}/>
-            <Dot/>
+            <Dot index = {index} length={3} onChange={(num)=>{this.setState({index:num})}}/>
         </div>;
     }
 }

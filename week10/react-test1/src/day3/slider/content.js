@@ -8,9 +8,14 @@ class App extends React.Component {
           length:props.data.length
         }
     }
-    move(){
+    move(i){
       let n = this.props.index;
-      n++;
+      if(i == -1){
+        // 向左移动
+        n--
+      }else{
+        n++
+      }
       if(n == this.state.length+1){
         n = 0;
         this.setState({
@@ -23,6 +28,19 @@ class App extends React.Component {
             // index:1
           })
           this.props.onChangeIndex(1)
+        }, 0);
+      }else if(n < 0){
+        n = this.state.length;
+        this.setState({
+          str:'none'
+        });
+        // 闪到第最后一张之后 紧着这 我们要让他从最后一张移动到倒数第二张；
+        setTimeout(() => {
+          this.setState({
+            str:'left 0.5s',
+            // index:1
+          })
+          this.props.onChangeIndex(this.state.length-1)
         }, 0);
       }else{
         this.setState({
