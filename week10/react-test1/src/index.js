@@ -15,7 +15,13 @@ import 'antd/dist/antd.css'
 // import './day3/2_父子组件'
 
 // import './day3/4_dialog'
-import './day3/slider/index'
+// import './day3/slider/index'
+
+// import './day4/1_slider'
+// import './day4/2_ref'
+// import './day4/3_propTypes'
+// import './day4/4_表单'
+import './day4/5_todo'
 
 
 

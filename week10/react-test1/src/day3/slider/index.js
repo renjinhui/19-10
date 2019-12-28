@@ -34,6 +34,7 @@ class App extends React.Component {
     }
     render() {
         let {isStop,index} = this.state;
+        let {children} = this.props;
         return <div className='sliderBox' 
           onMouseEnter={this.stop} 
           onMouseLeave={()=>{this.setState({isStop:false})}}
@@ -43,11 +44,14 @@ class App extends React.Component {
               isStop={isStop}
               index = {index}
               onChangeIndex={(num)=>{this.setState({index:num})}}
-              data={['http://cms-bucket.ws.126.net/2019/1227/11e0a90dj00q35c5c0024c000ak0057c.jpg','http://cms-bucket.ws.126.net/2019/1227/175f48f5j00q35f94001rc000cl0069c.jpg','https://yt-adp.ws.126.net/channel12/590185_bkrw_20191227.jpg']}/>
+              // data={['http://cms-bucket.ws.126.net/2019/1227/11e0a90dj00q35c5c0024c000ak0057c.jpg','http://cms-bucket.ws.126.net/2019/1227/175f48f5j00q35f94001rc000cl0069c.jpg','https://yt-adp.ws.126.net/channel12/590185_bkrw_20191227.jpg']}
+              >
+                {children}
+              </Content>
             <Btn onLeft={this.left} onRight={this.right}/>
-            <Dot index = {index} length={3} onChange={(num)=>{this.setState({index:num})}}/>
+            <Dot index = {index} length={children.length} onChange={(num)=>{this.setState({index:num})}}/>
         </div>;
     }
 }
-
-ReactDom.render(<App></App>,document.getElementById('root'));
+export default App;
+// ReactDom.render(<App></App>,document.getElementById('root'));

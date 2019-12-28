@@ -5,7 +5,7 @@ class App extends React.Component {
         this.state = {
           // index:0, // 控制显示张数的索引  需要把index进行状态提升
           str:'left 0.5s',
-          length:props.data.length
+          length:props.children.length
         }
     }
     move(i){
@@ -68,8 +68,7 @@ class App extends React.Component {
     render() {
         let {str} = this.state;
         let {index,isStop} = this.props;
-        let ary = this.props.data;// 数据从父组件获取
-
+        let ary = this.props.children.map(item=>item);// 数据从父组件获取
         ary.push(ary[0])
         if(isStop){
           // 若父组件传进来的值是true 也就是要停止动画
@@ -88,7 +87,7 @@ class App extends React.Component {
           {
             ary.map((item,index)=>{
               return <li key={index}>
-                <img src={item} alt="" />
+                {item}
               </li>
             })
           }
