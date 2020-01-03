@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import {Provider,connect} from 'react-redux';
+import * as types from '../store/action-types'
 import store from '../store/index.js'
+import { add, minus, changeColor } from '../store/actions';
 class Show extends React.Component{
   render(){
     return <div>
@@ -23,9 +25,11 @@ class Button extends React.Component{
   render(){
     console.log(this.props.dispatch)
     return <div>
-      <button onClick={()=>this.props.dispatch({type:"ADD",qqq:10})}>+</button>
-      <button onClick={()=>this.props.dispatch({type:"MINUS",qqq:5})}>-</button>
-      <button onClick={this.props.change.bind(this,{type:"CHANGECOLOR",color:'red'})}>变色</button>
+      <button onClick={()=>this.props.dispatch(add(10))}>+</button>
+      <button onClick={()=>this.props.dispatch(minus(5))}>-</button>
+      <button onClick={this.props.change.bind(this,changeColor('red'))}>变色</button>
+      {/* <button onClick={()=>this.props.dispatch({type:types.MINUS,qqq:5})}>-</button>
+      <button onClick={this.props.change.bind(this,{type:types.CHANGECOLOR,color:'red'})}>变色</button> */}
     </div>
   }
 }
