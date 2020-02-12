@@ -22,7 +22,7 @@
             小胡子语法 
             里边只能写表达式 不能写语句
         -->
-        <h1>{{qqq}}</h1>
+        <!-- <h1>{{qqq}}</h1> -->
     
         <!-- <h1>{{qqq}}   adehtdhs hsfg r {{hello}}</h1>
         <h2>{{aaa + qqq}}</h2>
@@ -32,16 +32,50 @@
     </div>
     <div id="app2">
         <h1>{{qqq}}</h1>
+        <my-com v-model='qqq'></my-com>
     </div>
 </body>
 </html>
+<template id='qqq'>
+    <div>
+        <input type="text" v-model="v1">
+        <input type="text" v-model="v2">
+    </div>
+</template>
 <script>
+    Vue.component("my-com",{
+        template:"#qqq",
+        props:['value'],
+        mounted() {
+            console.log(this.$el)
+        },
+        computed: {
+            v1:{
+                get(){
+                    return this.value.split(/ +/)[0]
+                },
+                set(val){
+                    let str = val+' '+this.v2;
+                    this.$emit('input',str)
+                }
+            },
+            v2:{
+                get(){
+                    return this.value.split(/ +/)[1]||''
+                },
+                set(val){
+                    let str = this.v1+' '+val;
+                    this.$emit('input',str)
+                }
+            }
+        },
+    })
     new Vue({
         // el:'#app',// 不能是 body 和 html；
         // template:`<div>这是个执行模板{{qqq}}</div>`,
         data:{
             // data中的属性 就是vue的变量
-            qqq:'hello' ,
+            qqq:'hello 珠峰' ,
             hello:'2345432456',
             aaa:[1,2,3,4],
         }

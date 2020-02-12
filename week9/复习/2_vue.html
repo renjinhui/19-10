@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{name}}</h1>
+    <my :title='name' @click123456='fn'></my>
+  </div>
+</body>
+
+</html>
+<template id='qqq'>
+  <div>
+    <h3>{{title}}</h3>
+    <button @click='myfn'>按钮</button>
+  </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  let my = {
+    template: '#qqq',
+    props: ['title'],
+    methods: {
+      myfn() {
+        this.$emit('click123456', "珠峰 培训")
+      }
+    },
+  }
+  let vm = new Vue({
+    el: '#app',
+    components: {
+      my
+    },
+    data: {
+      name: "珠峰"
+    },
+    methods: {
+      fn(val) {
+        this.name = val
+      }
+    },
+  });
+
+  var obj = {
+    name: 123
+  }
+  Object.defineProperty(obj, 'name', {
+    get() {
+      return 666
+    },
+    set(val) {
+      console.log(val)
+    }
+  });
+
+  q = {aaa:123};
+  var t = new Proxy(q, {
+    get(target, name) {
+      console.log(target, name)
+      return target[name]
+    },
+    set(target, prop, val) {
+      console.log(target, prop, val);
+      target[prop] = val
+    }
+  })
+</script>

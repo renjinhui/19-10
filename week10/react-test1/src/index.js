@@ -26,7 +26,8 @@ import 'antd/dist/antd.css'
 // import './day5/2_高阶组件'
 // import './day5/4_redux'
 
-import './day5/redux使用/count'
+// import './day5/redux使用/count'
+import './day5/router/index'
 
 
 

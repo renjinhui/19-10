@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="app">
-        <h1>{{name}}</h1>
+        <h1 v-for='item in ary' ref='qqq'>{{name}}</h1>
         {{obj}}
         <span style="display: none">{{t}}</span>
     </div>
@@ -34,8 +34,33 @@
                 a:12,
                 // c:undefined
             },
-            t:0
-        }
+            t:0,
+            ary:[1,2,3,4]
+        },
+        mounted() {
+            console.log(this.$refs.qqq.length)
+            this.ary.pop();
+            this.$nextTick(()=>{
+                console.log(this.$refs.qqq.length)
+            })
+        },
+        computed: {
+            qqq(){
+                console.log(this.name)
+                setTimeout(() => {
+                    console.log(this.ary)
+                }, 20);
+            },
+            aaa:{
+                get(){},
+                set(val){}
+            }
+        },
+        watch: {
+            name(newVal,oldVal){
+                console.log(newVal,oldVal)
+            }
+        },
     });
     // vm.obj.c = 123;
 

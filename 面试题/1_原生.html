@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  function fn(ary, sum) {
+    // let a,b;
+    // ary.forEach((item,index)=>{
+    //   let temp = ary.slice(index+1);
+    //   let v = sum - item;
+    //   if(temp.some(i=>i==v)){
+    //     a = item;
+    //     b = v;
+    //   }
+    // })
+    // return a ? a + ' ' + b : 'notfound'
+    for (let i = 0; i < ary.length; i++) {
+      let temp = ary.slice(i + 1);
+      let val = sum - ary[i];
+      if (temp.some(v => v == val)) {
+        return ary[i] + ' ' + val
+      }
+    }
+    return 'notfound'
+  }
+  var arr = [1, 2, 3, 4, 6, 8];
+  var sum = 10;
+  var sum2 = 13;
+  console.log(fn(arr, sum)); // 2 8     4 6
+  console.log(fn(arr, sum2)); // notfound
+
+
+
+
+
+  let obj = {
+    a: 123
+  };
+  let o = Object.create(obj);
+  //该函数返回了一个新的空对象，但是该空对象的__proto__是指向了obj这个参数
+  // 手写Object.create
+  function create(proto) {
+    // var obj = {};
+    // obj.__proto__ = proto;
+    // return obj;
+
+    function F() {}
+    F.prototype = proto;
+
+    return new F();
+  }
+
+
+  //模拟new
+  function mynew() {
+    const obj = new Object();
+    const Constructor = [].shift.call(arguments);
+
+    obj.__proto__ = Constructor.prototype;
+
+    const ret = Constructor.apply(obj, arguments);
+
+    return typeof ret === "object" ? ret : obj;
+  }
+  mynew(fn, 1, 2, 3) // new fn(1,2,3)
+
+
+  function fn() {
+    console.log(this)
+  }
+  fn();
+  fn.call([], 1, 2, 3, 4)
+  Function.prototype.myCall = function (context) {
+    //此处没有考虑context非object情况
+    context.fn = this;
+    let args = [];
+    for (let i = 1, len = arguments.length; i < len; i++) {
+      args.push(arguments[i]);
+    }
+    context.fn(...args);
+    let result = context.fn(...args);
+    delete context.fn;
+    return result;
+  };
+  Function.prototype.myCall = function (context, ...arg) {
+    // this 就是 fn函数
+    let a = Symbol(); //
+    context[a] = this; // 这种写法不会影响传进来的原有对象
+    let result = context[a](...arg);
+    delete context[a];
+    return result;
+  }
+  fn.myCall([], 1, 2, 3);
+
+
+
+  // async function async1() {
+  //         console.log("async1 start");
+  //         await async2();
+  //         console.log("async1 end");
+  //     }
+  //     async function async2() {
+  //         console.log('async2');
+  //     }
+  //     console.log("script start");
+  //     setTimeout(function () {
+  //         console.log("settimeout");
+  //     },20);
+  //     async1()
+  //     new Promise(function (resolve) {
+  //         console.log("promise1");
+  //         resolve();
+  //     }).then(function () {
+  //         console.log("promise2");
+  //     });
+  //     setImmediate(() => {
+  //         console.log("setImmediate")
+  //     })
+  //     process.nextTick(() => {
+  //         console.log("process")
+  //     })
+  //     console.log('script end');
+
+
+
+  var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#qqq';
+
+  function getParam(str) {
+    var obj = {};
+    var reg = /([^?=&]+)=([^?=&#]+)/g;
+    str.replace(reg, ($0, $1, $2) => {
+      obj[$1] = $2;
+    })
+    var res = str.match(/#(\w+)/);
+    res ? obj.hash = res[1] : null;
+    return obj;
+  }
+  getParam(str);
+
+
+  var str = 'sfgsdfgsertdgfsdfgsertwegdsfgertewgsdfgsdg';
+
+  function getMax(str) {
+    str = str.split('').sort().join('');
+    let key, num = 0;
+    str.replace(/(\w)\1*/g, (a, b) => {
+      // a  就似乎  'wwwww'  b就是'w'
+      if (a.length > num) {
+        num = a.length;
+        key = b
+      }
+    })
+    return {
+      key,
+      num
+    }
+  }
+  console.log(getMax(str));
+
+  function sleep(time) {
+    return new Promise((res, rej) => {
+      setTimeout(() => res(), time || 2000);
+    })
+  }
+  sleep(3000).then(() => {
+    console.log("2秒之后了")
+  });
+
+  function debounce(fn, delay) {
+    let timer = null;
+    return (...arg) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn(...arg);
+      }, delay);
+    }
+  }
+
+  function throttle(fn, delay) {
+    let flag = true;
+    return (...arg) => {
+      if (!flag) return;
+      flag = false;
+      setTimeout(() => {
+        fn(...arg);
+        flag = true;
+      }, delay);
+    }
+  }
+
+  function deepclone(obj) {
+    let temp = {};
+    for (var k in obj) {
+      if (typeof obj[k] == 'object') {
+        temp[k] = deepclone(obj[k])
+      } else {
+        temp[k] = obj[k]
+      }
+    }
+    return temp;
+  }
+
+  // Promise.all([p1,p2,p3]).then((val)=>{console.log(val)}).catch(()=>{})
+  Promise.myAll=function(ary){
+    return new Promise((res,rej)=>{
+      let done = count(ary.length,res);
+      ary.forEach((item,index)=>{
+        item.then((data)=>{done(index,data)},rej)
+      })
+    })
+  }
+  function count(length,res){
+    let num=0,values = [];
+    return function(index,data){
+      values[index] = data;
+      if(++num == length){
+        res(values)
+      }
+    }
+  }
+  let p1 = new Promise((res)=>{setTimeout(res,3000)})
+  let p2 = new Promise((res)=>{setTimeout(res,4000)})
+  let p3 = new Promise((res)=>{setTimeout(res,5000)})
+  Promise.myAll([p1,p2,p3]).then(val=>{console.log(val)})
+
+  // Promise.all([p1,p2,p3]).then((val)=>{console.log(val)}).catch(()=>{})
+  Promise.all = function(ary){
+    return new Promise((res,rej)=>{
+      let done = gen(ary.length,res);
+      ary.forEach((item,index)=>{
+        // item 是ary中的每一个 promise实例
+        item.then((data)=>{
+          done(data,index)
+        },rej)
+      })
+    })
+  }
+  function gen(length,res){
+    // 得知道要执行目标函数 多少次； 执行到对应的次数之后要干什么事；
+    let count=0,values = [];
+    return function(data,index){
+      values[index] = data;
+      ++count // count++
+      if( count== length){
+        // 所有的promise都是执行的成功回调
+        console.log(values)
+        res(values);
+      }
+    }
+  }
+  let p1 = new Promise((res)=>{setTimeout(()=>{res(3000)},3000)})
+  let p2 = new Promise((res)=>{setTimeout(()=>{res(4000)},4000)})
+  let p3 = new Promise((res)=>{setTimeout(()=>{res(5000)},5000)})
+  Promise.all([p1,p2,p3]).then(val=>{console.log(val)})
+</script>
