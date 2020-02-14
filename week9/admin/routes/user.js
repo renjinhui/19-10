@@ -19,7 +19,7 @@ route.post('/login', (req, res) => {
 		account = '',
 			password = ''
 	} = req.body || {};
-	password = handleMD5(password);
+	// password = handleMD5(password);
 
 	const item = req.$userDATA.find(item => {
 		return (item.name === account || item.email === account || item.phone === account) && item.password === password;
