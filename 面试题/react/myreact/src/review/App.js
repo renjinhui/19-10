@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import { Button } from "antd";
 import Comp123 from './Comp'
+import TestDialog from './dialog/index'
+import Count from './count'
+import Color from './color'
 import './App.css';
 
 function App() {
@@ -75,6 +78,9 @@ function App2(){
 function Home(){
   return <div>
     <Comp123></Comp123>
+    <TestDialog></TestDialog>
+    <Count/>
+    <Color/>
   </div>
 }
 

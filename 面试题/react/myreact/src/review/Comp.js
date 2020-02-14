@@ -36,6 +36,10 @@ class MyInput extends React.Component{
   }
 }
 class Parent extends React.Component{
+    constructor(){
+      super();
+      this.aaa = React.createRef();
+    }
     state = {
       obj:{q:123},
       name:"珠峰培训"
@@ -46,6 +50,7 @@ class Parent extends React.Component{
       })
     }
     change2=(e)=>{
+      console.log(this.refs.qqq,this.qwe,this.aaa.current)
       this.setState({
         name:e.target.value
       })
@@ -54,10 +59,10 @@ class Parent extends React.Component{
       console.log(this.state)
       let {name} = this.state;
       return <div>
-        <h2>这是一个父组件{this.state.obj.q}</h2>
-        <Child name={name} mychange={this.change}></Child>
+        <h2 ref='qqq'>这是一个父组件{this.state.obj.q}</h2>
+        <Child ref={(el)=>{this.qwe = el}} name={name} mychange={this.change}></Child>
 
-        <Input value={name} onChange={this.change2}/>
+        <Input ref={this.aaa} value={name} onChange={this.change2}/>
         <MyInput value={name} onChange={this.change2}></MyInput>
       </div>
     }
