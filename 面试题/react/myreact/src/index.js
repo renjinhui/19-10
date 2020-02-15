@@ -4,7 +4,7 @@ import { ConfigProvider} from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import './index.css';
 
 import App from './view/App';
@@ -16,12 +16,12 @@ import store from './store'
 
 moment.locale('zh-cn');
 
-console.log(store.getState());
+// console.log(store.getState());
 ReactDOM.render(<Provider store={store}>
   <ConfigProvider locale={zhCN}><App/></ConfigProvider>
 </Provider>, document.getElementById('root'),function(){
   // DOM 渲染完成之后触发；
-  console.log(document.getElementsByClassName('App'))
+  // console.log(document.getElementsByClassName('App'))
   
 });
 

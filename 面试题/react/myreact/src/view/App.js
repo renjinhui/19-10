@@ -9,9 +9,9 @@ function Protect({component:Com,...others}){
   // console.log(props)
   return (
     <Route {...others} render={(props)=>{
-      console.log(props)
+      // console.log(props)
       return (
-        1 > 2 ?
+        localStorage.getItem('power') ?
         <Com {...props}/>:
         <Redirect to='/login'/>
       )
