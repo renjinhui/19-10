@@ -1,10 +1,33 @@
 import React from 'react';
-import { getDepartList } from '../../api/home'
-import { Table, Divider, Tag, Button } from 'antd';
+import { getDepartList,delDepartment } from '../../api/home'
+import { Table, Divider, Modal, Button } from 'antd';
+const { confirm } = Modal;
 class List extends React.Component {
     constructor() {
         super();
         
+    }
+    emit=(record)=>{
+      this.props.history.push('/home/org/addDepartment?id='+record.id)
+      console.log(this.props.history)
+    }
+    del=(record)=>{
+      confirm({
+        title: '警告！',
+        content: '是否确定删除？',
+        onOk:()=> {
+          delDepartment({departmentId:record.id}).then(data=>{
+            getDepartList().then(data=>{
+                this.setState({
+                    data:data.data
+                })
+            })
+          })
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     }
     state = {
         columns : [
@@ -35,9 +58,9 @@ class List extends React.Component {
               key: 'action',
               render: (text, record) => (
                 <span>
-                  <Button type="primary">编辑</Button>
+                  <Button type="primary" onClick={this.emit.bind(this,record)}>编辑</Button>
                   <Divider type="vertical" />
-                  <Button type="danger">删除</Button>
+                  <Button type="danger" onClick={this.del.bind(this,record)}>删除</Button>
                 </span>
               ),
             },

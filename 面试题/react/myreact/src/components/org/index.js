@@ -52,7 +52,7 @@ class App extends React.Component {
     render() {
         let permission = this.props.permission || [];
         this.initSelect();
-        console.log(this.state.ary)
+        console.log(permission)
         return <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
                 <Menu 

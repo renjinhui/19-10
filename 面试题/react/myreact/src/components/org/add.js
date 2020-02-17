@@ -1,5 +1,5 @@
 import React from 'react';
-import { addDepartment } from "../../api/home";
+import { addDepartment,upDateDepartment,getDepartmentInfo } from "../../api/home";
 import { Form, Input, Button, Modal, Checkbox } from 'antd';
 const { confirm } = Modal;
 
@@ -14,15 +14,28 @@ const formTailLayout = {
 class DynamicRule extends React.Component {
   state = {
     checkNick: false,
-    initName:"账单",
-    initDesc:"长得得分赋给"
+    initName:"",
+    initDesc:""
   };
 
   add = (option)=>{
-    addDepartment(option).then(data=>{
-        console.log(this)
+    let ary = this.props.location.search.match(/id=(\w+)/);
+    let id = ary&&ary[1];
+    if(id){
+      // 有ID证明是更新
+      option = Object.assign({
+        departmentId:id
+      },option)
+      upDateDepartment(option).then(data=>{
         this.props.history.push('/home/org/department')
-    })  
+      }) 
+    }else{
+      // 没有ID证明是新增
+      addDepartment(option).then(data=>{
+        this.props.history.push('/home/org/department')
+      }) 
+    }
+     
     // console.log(option)
   }
   check = (...arr) => {
@@ -57,7 +70,21 @@ class DynamicRule extends React.Component {
       },
     );
   };
-
+  back = ()=>{
+    this.props.history.goBack()
+  }
+  componentDidMount(){
+    let ary = this.props.location.search.match(/id=(\w+)/);
+    let id = ary&&ary[1];
+    if(!id)return;
+    getDepartmentInfo({departmentId:id}).then(data=>{
+      console.log(data.data)
+      this.setState({
+        initName:data.data.name,
+        initDesc:data.data.desc
+      })
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -93,7 +120,7 @@ class DynamicRule extends React.Component {
           <Button type="primary" onClick={this.check}>
             立即创建
           </Button>
-          <Button onClick={this.check}>
+          <Button onClick={this.back}>
             取消
           </Button>
         </Form.Item>
