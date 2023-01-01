@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "less": "^3.10.3",
-    "less-loader": "^5.0.0"
+    "less-loader": "^11.1.0"
   },
   "devDependencies": {
     "sass": "^1.23.3"
